@@ -1,0 +1,39 @@
+page-product {
+    .product-view {
+        h1 {
+            font-size: 2rem;
+        }
+        p {
+            font-size: 1.5rem;
+        }
+    }
+    ul {
+        padding: 0px;
+        &.rating li {
+            padding: 5px 10px !important;
+            background: none;
+            color: #ffb400;
+            ion-icon {
+                font-size: 1.5rem;
+            }
+        }
+    }
+    .image-slider {
+        color: #fff;
+        ion-slides {
+            display: block;
+            width: 100%;
+            height: 30%;
+        }
+        .slide-zoom {
+            text-align: center;
+            display: block;
+            width: 60%;
+        }
+        .image-slider-slide {
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+    }
+}

@@ -1,0 +1,48 @@
+<ion-header>
+    <ion-navbar hideBackButton>
+        <ion-buttons left>
+            <button ion-button (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>
+            {{heading_title}}
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <form [formGroup]="loginForm">
+        <div text-center>
+            <p ion-text color="danger" *ngIf="submitAttempt && error_warning">{{error_warning}}</p>
+            <p ion-text color="secondary" *ngIf="submitAttempt && success">{{success}}</p>
+        </div>
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>Email</ion-label>
+                        <ion-input formControlName="email" type="text" [class.invalid]="!loginForm.controls.email.valid && (loginForm.controls.email.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!loginForm.controls.email.valid  && (loginForm.controls.email.dirty || submitAttempt)">{{error_email}}</p>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>Password</ion-label>
+                        <ion-input formControlName="password" type="password" [class.invalid]="!loginForm.controls.password.valid && (loginForm.controls.password.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!loginForm.controls.password.valid  && (loginForm.controls.password.dirty || submitAttempt)">{{error_password}}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+
+    <div padding>
+        <button ion-button color="primary" block (click)="save()">Login</button>
+        <p (click)="goToRegsiter()">Create a new account</p>
+    </div>
+</ion-content>

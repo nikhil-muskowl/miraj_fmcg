@@ -1,0 +1,15 @@
+page-tabs {
+    .tabbar{
+        transition-timing-function: linear;
+        transition-timing-function: ease;
+        transition-timing-function: ease-in;
+        transition-timing-function: ease-out;
+        transition-timing-function: ease-in-out;
+
+        -webkit-transition-timing-function: linear;
+        -webkit-transition-timing-function: ease;
+        -webkit-transition-timing-function: ease-in;
+        -webkit-transition-timing-function: ease-out;
+        -webkit-transition-timing-function: ease-in-out;
+    }
+}

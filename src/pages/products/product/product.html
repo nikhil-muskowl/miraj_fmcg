@@ -1,0 +1,125 @@
+<ion-header>
+    <ion-navbar hideBackButton>
+        <ion-buttons left>
+            <button ion-button (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>
+            {{heading_title}}
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content class="product-view">
+    <ion-grid>
+        <ion-row>
+            <ion-col col-12>
+                <div text-center>
+                    <img src="{{popup}}" width="50%" height="50%">
+                    <div class="image-slider">
+                        <ion-slides>
+                            <ion-slide class="image-slider-slide" *ngFor="let image of images;">
+                                <img src="{{image.popup}}">
+                            </ion-slide>
+                        </ion-slides>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-12>
+                <div text-left>
+                    <h1 [innerHTML]="heading_title"></h1>
+
+                    <ion-row no-padding>
+                        <ion-col>
+                            <div *ngIf="price !=false; then showspecialprice else showprice"></div>
+
+                            <ng-template #showprice>
+                                <p>{{mrp}}</p>
+                            </ng-template>
+
+                            <ng-template #showspecialprice>
+                                <del>{{mrp}}</del>
+                                <p>{{price}}</p>
+                            </ng-template>
+                        </ion-col>
+                        <ion-col text-center>
+                            <span *ngIf="discountrate" class="discount-off">{{discountrate}} % Off</span>
+                        </ion-col>
+                    </ion-row>
+
+
+
+
+                    <p>Availability: {{stock}}</p>
+                    <rating [(ngModel)]="rating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star"
+                        nullable="false"></rating>
+                </div>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-12>
+
+                <div padding>
+                    <ion-segment [(ngModel)]="review_tab">
+                        <ion-segment-button value="description">
+                            Description
+                        </ion-segment-button>
+                        <ion-segment-button value="reviews">
+                            Reviews
+                        </ion-segment-button>
+                    </ion-segment>
+                </div>
+                <div [ngSwitch]="review_tab">
+                    <div *ngSwitchCase="'description'">
+                        <p [innerHTML]="description"></p>
+                    </div>
+                    <div *ngSwitchCase="'reviews'">
+                        <product-review [productid]="product_id"></product-review>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+
+
+        <ion-row>
+            <ion-col col-12>
+                <hr>
+                <form [formGroup]="cartForm">
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col>
+                                <ion-item>
+                                    <ion-label>Option</ion-label>
+                                    <ion-select [(ngModel)]="detail_id" formControlName="detail_id" interface="popover" [class.invalid]="!cartForm.controls.detail_id.valid && (cartForm.controls.detail_id.dirty || submitAttempt)">
+                                        <ion-option *ngFor="let productdetail of productdetaillist" value="{{productdetail.product_detail_id}}">{{productdetail.netweight}}, {{productdetail.price}}</ion-option>
+                                    </ion-select>
+                                </ion-item>
+                                <p class="invalid-message" *ngIf="!cartForm.controls.detail_id.valid  && (cartForm.controls.detail_id.dirty || submitAttempt)">{{field_error}}</p>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>
+                                <ion-item>
+                                    <ion-label floating>quantity</ion-label>
+                                    <ion-input [(ngModel)]="cart_quantity" formControlName="quantity" type="text" [class.invalid]="!cartForm.controls.quantity.valid && (cartForm.controls.quantity.dirty || submitAttempt)"></ion-input>
+                                </ion-item>
+                                <p class="invalid-message" *ngIf="!cartForm.controls.quantity.valid  && (cartForm.controls.quantity.dirty || submitAttempt)">{{field_error}}</p>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>
+                                <button ion-button full (click)="save()">Add to cart</button>
+                                <button ion-button full color="light" (click)="addWishlist()">Add to wishlist</button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </form>
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

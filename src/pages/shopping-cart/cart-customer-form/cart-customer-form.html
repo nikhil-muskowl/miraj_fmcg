@@ -1,0 +1,72 @@
+<ion-header>
+    <ion-navbar hideBackButton>
+        <ion-buttons left>
+            <button ion-button (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>
+            {{heading_title}}
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+
+    <form [formGroup]="cartCustomerForm">
+        <div text-center>
+            <p ion-text color="danger" *ngIf="submitAttempt && error_warning">{{error_warning}}</p>
+            <p ion-text color="secondary" *ngIf="submitAttempt && text_message">{{text_message}}</p>
+        </div>
+
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>Fullname</ion-label>
+                        <ion-input formControlName="fullname" type="text" [class.invalid]="!cartCustomerForm.controls.fullname.valid && (cartCustomerForm.controls.fullname.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!cartCustomerForm.controls.fullname.valid  && (cartCustomerForm.controls.fullname.dirty || submitAttempt)">{{error_fullname}}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>Email</ion-label>
+                        <ion-input formControlName="email" type="text" [class.invalid]="!cartCustomerForm.controls.email.valid && (cartCustomerForm.controls.email.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!cartCustomerForm.controls.email.valid  && (cartCustomerForm.controls.email.dirty || submitAttempt)">{{error_email}}</p>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>Mobile</ion-label>
+                        <ion-input formControlName="mobile" type="text" [class.invalid]="!cartCustomerForm.controls.mobile.valid && (cartCustomerForm.controls.mobile.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!cartCustomerForm.controls.mobile.valid  && (cartCustomerForm.controls.mobile.dirty || submitAttempt)">{{error_mobile}}</p>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label>ImmediateShipping</ion-label>
+                        <ion-checkbox formControlName="ImmediateShipping" [(ngModel)]="ImmediateShipping" (ionChange)="checkCheckbox($event)" [class.invalid]="!cartCustomerForm.controls.ImmediateShipping.valid && (cartCustomerForm.controls.ImmediateShipping.dirty || submitAttempt)"></ion-checkbox>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!cartCustomerForm.controls.ImmediateShipping.valid  && (cartCustomerForm.controls.ImmediateShipping.dirty || submitAttempt)">{{error_ImmediateShipping}}</p>
+                </ion-col>
+            </ion-row>
+
+        </ion-grid>
+    </form>
+
+    <cart-summary></cart-summary>
+    <cart-terms></cart-terms>
+
+    <div padding>
+        <button ion-button color="primary" block (click)="save()">Proceed</button>
+    </div>
+</ion-content>

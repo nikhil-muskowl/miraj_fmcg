@@ -1,0 +1,85 @@
+<ion-header>
+    <ion-navbar hideBackButton>
+        <ion-buttons left>
+            <button ion-button (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>
+            {{heading_title}}
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <form [formGroup]="registerForm">
+
+        <div text-center>
+            <p ion-text color="danger" *ngIf="submitAttempt && error_warning">{{error_warning}}</p>
+            <p ion-text color="secondary" *ngIf="submitAttempt && text_message">{{text_message}}</p>
+        </div>
+
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>fullname</ion-label>
+                        <ion-input formControlName="fullname" type="text" [class.invalid]="!registerForm.controls.fullname.valid && (registerForm.controls.fullname.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!registerForm.controls.fullname.valid  && (registerForm.controls.fullname.dirty || submitAttempt)">{{error_fullname}}</p>
+                </ion-col>
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>username</ion-label>
+                        <ion-input formControlName="username" type="text" [class.invalid]="!registerForm.controls.username.valid && (registerForm.controls.username.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!registerForm.controls.username.valid  && (registerForm.controls.username.dirty || submitAttempt)">{{error_username}}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>Email</ion-label>
+                        <ion-input formControlName="email" type="text" [class.invalid]="!registerForm.controls.email.valid && (registerForm.controls.email.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!registerForm.controls.email.valid  && (registerForm.controls.email.dirty || submitAttempt)">{{error_email}}</p>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>Telephone</ion-label>
+                        <ion-input formControlName="telephone" type="text" [class.invalid]="!registerForm.controls.telephone.valid && (registerForm.controls.telephone.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!registerForm.controls.telephone.valid  && (registerForm.controls.telephone.dirty || submitAttempt)">{{error_telephone}}</p>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>Password</ion-label>
+                        <ion-input formControlName="password" type="password" [class.invalid]="!registerForm.controls.password.valid && (registerForm.controls.password.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!registerForm.controls.password.valid  && (registerForm.controls.password.dirty || submitAttempt)">{{error_password}}</p>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>Confirm Password</ion-label>
+                        <ion-input formControlName="confirm" type="password" [class.invalid]="!registerForm.controls.confirm.valid && (registerForm.controls.confirm.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!registerForm.controls.confirm.valid  && (registerForm.controls.confirm.dirty || submitAttempt)">{{error_confirm}}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+
+    <div padding>
+        <button ion-button color="primary" block (click)="save()">Register</button>
+    </div>
+</ion-content>

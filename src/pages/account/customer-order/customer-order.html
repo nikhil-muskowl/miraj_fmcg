@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-navbar hideBackButton>
+        <ion-buttons left>
+            <button ion-button (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>
+            {{heading_title}}
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <h1 text-center> {{heading_title}}</h1>
+    <ion-card *ngFor="let order of orders;">
+        <ion-card-content>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-8>
+                        <h3 [innerHTML]="order.order_no"></h3>
+                        <p>{{order.name}}</p>
+                        <p>{{order.status}}</p>
+                        <p>{{order.date_added}}</p>
+                        <p>{{order.total}}</p>
+                    </ion-col>
+                    <ion-col col-4>
+                        <ion-buttons end>
+                            <button ion-button color="secondary" icon-only (click)="viewDetail(order)">
+                                <ion-icon name="ios-eye-outline"></ion-icon>
+                            </button>
+                            <button ion-button color="secondary" icon-only (click)="viewDetail(order)">
+                                <ion-icon name="ios-eye-outline"></ion-icon>
+                            </button>
+                        </ion-buttons>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

@@ -1,3 +1,79 @@
 page-home {
-
+    .padding {
+        padding: 0.5rem;
+    }
+    .grid {
+        padding: 0 0.5rem 0 0.5rem;
+        .col {
+            padding: 0;
+        }
+    }
+    $SIDEMENU_TOP: #f29c22;
+    $SIDEMENU_BOTTOM: #eed13b;
+    $FONT_COLOR: #FAFAFA;
+    .offer {
+        text-align: center;
+        h1 {
+            font-size: 2rem;
+            line-height: 2rem;
+            font-weight: bold !important;
+            text-transform: uppercase;
+            background: -webkit-linear-gradient($SIDEMENU_BOTTOM, $SIDEMENU_TOP);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        p {
+            line-height: 0.1rem;
+        }
+    }
+    .banner {
+        height: 50%;
+        .banner-slide {
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+        .heading {
+            font-size: 3rem;
+            color: #fff;
+            margin-top: 0rem;
+            margin-bottom: 3rem;
+        }
+        .heading:after {
+            background: #fff;
+        }
+    }
+    .social-message {
+        text-align: center;
+        margin: 1rem 0 1rem 0;
+        .grid {
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            display: flex;
+            box-orient: vertical;
+            -webkit-box-orient: vertical;
+            box-direction: normal;
+            -webkit-box-direction: normal;
+            flex-direction: column;
+            padding: 0px;
+        }
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+        .line {
+            border-width: 3px 3px 3px 0;
+            border-style: solid;
+            -webkit-border-image: -webkit-gradient(linear, 0 0, 100% 0, from($SIDEMENU_BOTTOM), to($SIDEMENU_TOP)) 1 100%;
+            -webkit-border-image: -webkit-linear-gradient(bottom, $SIDEMENU_BOTTOM, $SIDEMENU_TOP) 1 100%;
+            -moz-border-image: -moz-linear-gradient(bottom, $SIDEMENU_BOTTOM, $SIDEMENU_TOP) 1 100%;
+            -o-border-image: -o-linear-gradient(bottom, $SIDEMENU_BOTTOM, $SIDEMENU_TOP) 1 100%;
+            border-image: linear-gradient(to bottom, $SIDEMENU_BOTTOM, $SIDEMENU_TOP) 1 100%;
+        }
+        .icon {
+            width: 3rem;
+        }
+    }
 }

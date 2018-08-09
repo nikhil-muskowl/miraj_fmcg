@@ -1,0 +1,90 @@
+<ion-header>
+    <ion-navbar hideBackButton>
+        <ion-buttons left>
+            <button ion-button (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>
+            {{heading_title}}
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+
+    <p>Aacharan Enterprises Pvt. Ltd.</p>
+    <p>N.H. 8, Lal Madri Nathdwara, Rajsamand</p>
+    <p>Rajasthan (India)-313301</p>
+    <p>customer.support@mirajgroup.in</p>
+
+    <ion-list>
+        <ion-list-header>
+            Geting touch with us
+        </ion-list-header>
+        <ion-item>Toll Free : +1800-120-3699</ion-item>
+        <ion-item>Phone : 0295-3331206</ion-item>
+        <ion-item>Mobile : +91-9783437437</ion-item>
+        <ion-item>Fax : 0295-3331203</ion-item>
+        <ion-item>Email : mirajonlinestore@mirajgroup.in</ion-item>
+    </ion-list>
+
+    <hr>
+
+    <h2>Send Enquiry</h2>
+
+    <form [formGroup]="contactForm">
+
+        <div text-center>
+            <p ion-text color="danger" *ngIf="submitAttempt && error">{{error}}</p>
+            <p ion-text color="secondary" *ngIf="submitAttempt && success">{{success}}</p>
+        </div>
+
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>Name</ion-label>
+                        <ion-input formControlName="name" [(ngModel)]="name" type="text" [class.invalid]="!contactForm.controls.name.valid && (contactForm.controls.name.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!contactForm.controls.name.valid  && (contactForm.controls.name.dirty || submitAttempt)">{{error_name}}</p>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>Email</ion-label>
+                        <ion-input formControlName="email" [(ngModel)]="email" type="text" [class.invalid]="!contactForm.controls.email.valid && (contactForm.controls.email.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!contactForm.controls.email.valid  && (contactForm.controls.email.dirty || submitAttempt)">{{error_email}}</p>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>Mobile</ion-label>
+                        <ion-input formControlName="mobile" [(ngModel)]="mobile" type="text" [class.invalid]="!contactForm.controls.mobile.valid && (contactForm.controls.mobile.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!contactForm.controls.mobile.valid  && (contactForm.controls.mobile.dirty || submitAttempt)">{{error_mobile}}</p>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>Message</ion-label>
+                        <ion-input formControlName="enquiry" [(ngModel)]="enquiry" type="text" [class.invalid]="!contactForm.controls.enquiry.valid && (contactForm.controls.enquiry.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!contactForm.controls.enquiry.valid  && (contactForm.controls.enquiry.dirty || submitAttempt)">{{error_enquiry}}</p>
+                </ion-col>
+            </ion-row>
+
+        </ion-grid>
+    </form>
+
+    <div padding>
+        <button ion-button color="primary" block (click)="save()">Update</button>
+    </div>
+
+</ion-content>

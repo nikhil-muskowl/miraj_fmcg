@@ -1,0 +1,50 @@
+<ion-header [scrollHide]="headerScrollConfig" [scrollContent]="pageContent">
+    <ion-navbar>
+
+        <button start ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title>
+            <img src="assets/imgs/logo.png" width="100" height="50">
+        </ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="goToSearch()">
+                <ion-icon name="search"></ion-icon>
+            </button>            
+            <button ion-button icon-only (click)="goToWishlist()">
+                <ion-icon name="heart-outline"></ion-icon>
+            </button>
+            <button ion-button icon-only (click)="goTocart()">
+                <ion-icon name="cart"></ion-icon>
+            </button>
+            <button ion-button icon-only (click)="presentActionSheet($event)">
+                <ion-icon name="share"></ion-icon>
+            </button>
+        </ion-buttons>
+
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content #pageContent fullscreen>
+
+
+    <div text-center>
+        <h1>{{customer}}</h1>
+        <p>{{telephone}}</p>
+        <p>{{email}}</p>
+    </div>
+
+    <ion-list>
+        <ion-list-header>
+            Account Setting
+        </ion-list-header>
+        <ion-item (click)="gotoWishlist()">Wishlist</ion-item>
+        <ion-item (click)="gotoOrders()">My Orders</ion-item>
+        <ion-item (click)="gotoEditAccount()">Edit Account</ion-item>
+        <ion-item (click)="gotoChangePassword()">Change Password</ion-item>
+        <ion-item (click)="logout()">Logout of this app</ion-item>
+    </ion-list>
+</ion-content>

@@ -1,0 +1,88 @@
+<ion-header>
+    <ion-navbar hideBackButton>
+        <ion-buttons left>
+            <button ion-button (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>
+            {{heading_title}}
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+
+    <form [formGroup]="addressForm">
+        <div text-center>
+            <p ion-text color="danger" *ngIf="submitAttempt && error_warning">{{error_warning}}</p>
+            <p ion-text color="secondary" *ngIf="submitAttempt && success">{{success}}</p>
+        </div>
+        <ion-grid>
+
+
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>address</ion-label>
+                        <ion-input [(ngModel)]="address" formControlName="address" type="text" [class.invalid]="!addressForm.controls.address.valid && (addressForm.controls.address.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!addressForm.controls.address.valid  && (addressForm.controls.address.dirty || submitAttempt)">{{error_address}}</p>
+                </ion-col>
+            </ion-row>
+
+
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label>zone</ion-label>
+                        <ion-select [(ngModel)]="zone_id" (ionChange)="getDistrict(zone_id)" formControlName="zone_id" interface="popover" [class.invalid]="!addressForm.controls.zone_id.valid && (addressForm.controls.zone_id.dirty || submitAttempt)">
+                            <ion-option *ngFor="let zone of zones" value="{{zone.zone_id}}">{{zone.name}}</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!addressForm.controls.zone_id.valid  && (addressForm.controls.zone_id.dirty || submitAttempt)">{{error_zone_id}}</p>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label>district</ion-label>
+                        <ion-select [(ngModel)]="district_id" formControlName="district_id" interface="popover" [class.invalid]="!addressForm.controls.district_id.valid && (addressForm.controls.district_id.dirty || submitAttempt)">
+                            <ion-option *ngFor="let district of districts" value="{{district.district_id}}">{{district.name}}</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!addressForm.controls.district_id.valid  && (addressForm.controls.district_id.dirty || submitAttempt)">{{error_district_id}}</p>
+                </ion-col>
+            </ion-row>
+
+
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>postcode</ion-label>
+                        <ion-input [(ngModel)]="postcode" formControlName="postcode" type="text" [class.invalid]="!addressForm.controls.postcode.valid && (addressForm.controls.postcode.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!addressForm.controls.postcode.valid  && (addressForm.controls.postcode.dirty || submitAttempt)">{{error_postcode}}</p>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>city</ion-label>
+                        <ion-input [(ngModel)]="city" formControlName="city" type="text" [class.invalid]="!addressForm.controls.city.valid && (addressForm.controls.city.dirty || submitAttempt)"></ion-input>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!addressForm.controls.city.valid  && (addressForm.controls.city.dirty || submitAttempt)">{{error_city}}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+
+    <cart-summary></cart-summary>
+    <cart-terms></cart-terms>
+    
+    <div padding>
+        <button ion-button full color="primary" block (click)="save()">Save</button>
+    </div>
+
+
+</ion-content>

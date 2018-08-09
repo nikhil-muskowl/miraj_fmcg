@@ -1,17 +1,113 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
+<ion-header [scrollHide]="headerScrollConfig" [scrollContent]="pageContent">
+    <ion-navbar>
+
+        <button start ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title>
+            <img src="assets/imgs/logo.png" width="100" height="50">
+        </ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="goToSearch()">
+                <ion-icon name="search"></ion-icon>
+            </button>
+            
+            <button ion-button icon-only (click)="goToWishlist()">
+                <ion-icon name="heart-outline"></ion-icon>
+            </button>
+            <button ion-button icon-only (click)="goTocart()">
+                <ion-icon name="cart"></ion-icon>
+            </button>
+            <button ion-button icon-only (click)="presentActionSheet($event)">
+                <ion-icon name="share"></ion-icon>
+            </button>
+        </ion-buttons>
+
+    </ion-navbar>
+
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content #pageContent fullscreen>
+    
+    <div class="offer">
+        <h1>get 15% off* on all products</h1>
+        <p>*For limited time only*</p>
+    </div>
+
+    <div class="banner">
+        <ion-slides pager>
+            <div *ngFor="let slider of sliderChild">
+                <!-- <ion-slide class="banner-slide" style="background-image: url('{{slider.image}}')"> -->
+                <ion-slide class="banner-slide">
+                    <img src="{{slider.image}}" />
+                </ion-slide>
+            </div>
+        </ion-slides>
+    </div>
+
+    <div class="padding">
+        <div *ngFor="let deal of dealChild">
+            <img src="{{deal.image}}" class="img-responsive">
+        </div>
+    </div>
+
+    <ion-grid>
+        <ion-row>
+            <ion-col col-6>
+                <div *ngFor="let ban1 of ban1Child">
+                    <img src="{{ban1.image}}" class="img-responsive">
+                </div>
+            </ion-col>
+            <ion-col col-6>
+                <div *ngFor="let ban2 of ban2Child">
+                    <img src="{{ban2.image}}" class="img-responsive">
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <div class="padding">
+        <div *ngFor="let hzBan1 of hzBan1Child">
+            <img src="{{hzBan1.image}}" class="img-responsive">
+        </div>
+    </div>
+
+    <ion-grid>
+        <ion-row>
+            <ion-col col-6>
+                <div *ngFor="let ban3 of ban3Child">
+                    <img src="{{ban3.image}}" class="img-responsive">
+                </div>
+            </ion-col>
+            <ion-col col-6>
+                <div *ngFor="let vdBan of vdBanChild">
+                    <img src="{{vdBan.image}}" class="img-responsive">
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <div class="padding">
+        <div *ngFor="let hzBan2 of hzBan2Child">
+            <img src="{{hzBan2.image}}" class="img-responsive">
+        </div>
+    </div>
+
+    <div class="social-message">
+        <ion-grid>
+            <ion-row>
+                <ion-col text-center class="line">
+                    <h1>Follow Us on Facebook</h1>
+                    <img src="assets/icon/social/facebook.svg" class="img-responsive icon">
+                </ion-col>
+                <ion-col text-center>
+                    <h1>Follow Us on Instagram</h1>
+                    <img src="assets/icon/social/instagram.svg" class="img-responsive icon">
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+
 </ion-content>
