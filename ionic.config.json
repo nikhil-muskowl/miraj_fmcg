@@ -1,0 +1,7 @@
+{
+  "name": "miraj_fmcg",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
