@@ -7,6 +7,9 @@ import { OrderProvider } from '../../../providers/order/order';
 import { AlertProvider } from '../../../providers/alert/alert';
 import { CustomerProvider } from '../../../providers/customer/customer';
 import { CustomerOrderViewPage } from '../customer-order-view/customer-order-view';
+
+import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser';
+
 @IonicPage()
 @Component({
   selector: 'page-customer-order',
@@ -28,6 +31,7 @@ export class CustomerOrderPage {
     public alertProvider: AlertProvider,
     private loadingProvider: LoadingProvider,
     private customerProvider: CustomerProvider,
+    private iab: InAppBrowser
   ) {
     this.heading_title = 'My Orders';
     this.isLogin();
@@ -72,4 +76,24 @@ export class CustomerOrderPage {
   viewDetail(data: any) {
     this.navCtrl.push(CustomerOrderViewPage, { order_id: data.order_id });
   }
+
+
+  trackOrder(data: any) {
+    if (data.trackurl != '') {
+      const option: InAppBrowserOptions = {
+        zoom: 'no',
+        hardwareback: 'no',
+        location: 'no',
+        toolbar: 'no'
+      }
+
+      const browser = this.iab.create(data.trackurl, '_self', option);
+      browser.show();
+    }
+  }
+
+
+
+
+
 }
