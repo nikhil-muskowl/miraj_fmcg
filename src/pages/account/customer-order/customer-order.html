@@ -26,10 +26,11 @@
                     <ion-col col-4>
                         <ion-buttons end>
                             <button ion-button color="primary" icon-only (click)="viewDetail(order)">
-                                <ion-icon name="ios-eye-outline"></ion-icon>
+                                View <ion-icon name="ios-eye-outline"></ion-icon>
                             </button>
                             <button *ngIf="order.trackurl" ion-button color="secondary" icon-only (click)="trackOrder(order)">
                                 <ion-icon name="globe"></ion-icon>
+                                Track
                             </button>
                         </ion-buttons>
                     </ion-col>
