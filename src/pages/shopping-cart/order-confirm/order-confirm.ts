@@ -37,7 +37,7 @@ export class OrderConfirmPage {
 
   ionViewDidLoad() {
   }
-  
+
   goBack() {
     this.navCtrl.pop();
   }
@@ -69,7 +69,7 @@ export class OrderConfirmPage {
           this.alertProvider.title = 'Success';
           this.alertProvider.message = this.success;
           this.alertProvider.showAlert();
-          this.navCtrl.push(CartSuccessPage);
+          this.navCtrl.push(CartSuccessPage, { redirecturl: this.responseData.redirecturl });
         }
 
         if (this.responseData.error && this.responseData.error != '') {

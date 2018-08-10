@@ -38,6 +38,8 @@ export class CartCustomerFormPage {
   private ImmediateShipping;
   private text_message;
 
+  public isImidiateShipping = false;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -65,12 +67,13 @@ export class CartCustomerFormPage {
     this.ImmediateShipping = this.orderProvider.ImmediateShipping;
 
     this.createForm();
+    this.checkImidiateShipping();
   }
 
   goBack() {
     this.navCtrl.pop();
   }
-  
+
   ionViewDidLoad() {
   }
 
@@ -103,5 +106,25 @@ export class CartCustomerFormPage {
     }
   }
 
+  public checkImidiateShipping() {
+    this.loadingProvider.present();
+    this.orderProvider.checkImidiateShipping().subscribe(
+      response => {
+        if (response) {
+          this.responseData = response;
+          if (this.responseData.ImidiateShipping == true) {
+            this.isImidiateShipping = true;
+          } else {
+            this.isImidiateShipping = false;
+          }
+        }
+      },
+      err => console.error(err),
+      () => {
+        this.loadingProvider.dismiss();
+      }
+    );
+    return event;
+  }
 
 }

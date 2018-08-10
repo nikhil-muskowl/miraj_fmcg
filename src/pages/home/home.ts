@@ -10,6 +10,8 @@ import { CustomerWishlistPage } from '../../pages/account/customer-wishlist/cust
 import { SearchProductsPage } from '../../pages/products/search-products/search-products';
 import { FollowUsProvider } from '../../providers/follow-us/follow-us';
 
+import { CategoryProductsPage } from '../products/category-products/category-products';
+
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { ScrollHideConfig } from '../../directives/scroll-hide/scroll-hide';
@@ -17,7 +19,7 @@ import { ScrollHideConfig } from '../../directives/scroll-hide/scroll-hide';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage {  
+export class HomePage {
   headerScrollConfig: ScrollHideConfig = { cssProperty: 'margin-top', maxValue: 60 };
 
   public showSearchbar: boolean = false;
@@ -106,6 +108,10 @@ export class HomePage {
 
   goToSearch() {
     this.navCtrl.push(SearchProductsPage);
+  }
+
+  getCategoryDetail(data: any) {
+    this.navCtrl.push(CategoryProductsPage, { category_id: data.category_id });
   }
 
 }

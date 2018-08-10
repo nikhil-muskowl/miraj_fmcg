@@ -72,13 +72,14 @@ export class CartProvider {
   }
 
   getTermCondition() {
-    this.URL = ConfigProvider.BASE_URL_ + 'termandcondition';    
+    this.URL = ConfigProvider.BASE_URL_ + 'termandcondition';
     return this.http.get(this.URL,
       {
         headers: this.headers,
       }
     );
   }
+
 
 
 }

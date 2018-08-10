@@ -38,9 +38,8 @@
 
     <div class="banner">
         <ion-slides pager>
-            <div *ngFor="let slider of sliderChild">
-                <!-- <ion-slide class="banner-slide" style="background-image: url('{{slider.image}}')"> -->
-                <ion-slide class="banner-slide">
+            <div *ngFor="let slider of sliderChild">                
+                <ion-slide class="banner-slide" (click)="getCategoryDetail(slider)">
                     <img src="{{slider.image}}" />
                 </ion-slide>
             </div>
@@ -48,7 +47,7 @@
     </div>
 
     <div class="padding">
-        <div *ngFor="let deal of dealChild">
+        <div *ngFor="let deal of dealChild" (click)="getCategoryDetail(deal)">
             <img src="{{deal.image}}" class="img-responsive">
         </div>
     </div>
@@ -56,12 +55,12 @@
     <ion-grid>
         <ion-row>
             <ion-col col-6>
-                <div *ngFor="let ban1 of ban1Child">
+                <div *ngFor="let ban1 of ban1Child" (click)="getCategoryDetail(ban1)">
                     <img src="{{ban1.image}}" class="img-responsive">
                 </div>
             </ion-col>
             <ion-col col-6>
-                <div *ngFor="let ban2 of ban2Child">
+                <div *ngFor="let ban2 of ban2Child" (click)="getCategoryDetail(ban2)">
                     <img src="{{ban2.image}}" class="img-responsive">
                 </div>
             </ion-col>
@@ -69,7 +68,7 @@
     </ion-grid>
 
     <div class="padding">
-        <div *ngFor="let hzBan1 of hzBan1Child">
+        <div *ngFor="let hzBan1 of hzBan1Child" (click)="getCategoryDetail(hzBan1)">
             <img src="{{hzBan1.image}}" class="img-responsive">
         </div>
     </div>
@@ -77,12 +76,12 @@
     <ion-grid>
         <ion-row>
             <ion-col col-6>
-                <div *ngFor="let ban3 of ban3Child">
+                <div *ngFor="let ban3 of ban3Child" (click)="getCategoryDetail(ban3)">
                     <img src="{{ban3.image}}" class="img-responsive">
                 </div>
             </ion-col>
             <ion-col col-6>
-                <div *ngFor="let vdBan of vdBanChild">
+                <div *ngFor="let vdBan of vdBanChild" (click)="getCategoryDetail(vdBan)">
                     <img src="{{vdBan.image}}" class="img-responsive">
                 </div>
             </ion-col>
@@ -90,7 +89,7 @@
     </ion-grid>
 
     <div class="padding">
-        <div *ngFor="let hzBan2 of hzBan2Child">
+        <div *ngFor="let hzBan2 of hzBan2Child" (click)="getCategoryDetail(hzBan2)">
             <img src="{{hzBan2.image}}" class="img-responsive">
         </div>
     </div>

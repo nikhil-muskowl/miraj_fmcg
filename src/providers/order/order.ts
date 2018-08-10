@@ -148,4 +148,15 @@ export class OrderProvider {
   }
 
 
+  
+  checkImidiateShipping() {
+    this.URL = ConfigProvider.BASE_URL_ + 'checkimidiateshipping';
+    return this.http.get(this.URL,
+      {
+        headers: this.headers,
+      }
+    );
+  }
+
+  
 }
