@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 // pages
 import { CustomerLoginPage } from '../customer-login/customer-login';
 import { CustomerOrderPage } from '../customer-order/customer-order';
+import { CustomerRequestsPage } from '../customer-requests/customer-requests';
 import { CustomerWishlistPage } from '../customer-wishlist/customer-wishlist';
 import { CustomerAccountEditPage } from '../customer-account-edit/customer-account-edit';
 import { CustomerChangePasswordPage } from '../customer-change-password/customer-change-password';
@@ -102,6 +103,10 @@ export class CustomerAccountPage {
 
   gotoOrders() {
     this.navCtrl.push(CustomerOrderPage);
+  }
+
+  gotoCustomerRequestsPage(){
+    this.navCtrl.push(CustomerRequestsPage);
   }
 
   gotoEditAccount() {

@@ -105,8 +105,7 @@ export class OrderProvider {
   }
 
   getOrders() {
-    this.URL = ConfigProvider.BASE_URL_ + 'orders?customer_id=' + ConfigProvider.CUSTOMER_ID;
-    console.log(this.URL);
+    this.URL = ConfigProvider.BASE_URL_ + 'orders?customer_id=' + ConfigProvider.CUSTOMER_ID;    
     return this.http.get(this.URL,
       {
         headers: this.headers,
@@ -124,7 +123,29 @@ export class OrderProvider {
   }
 
 
+  setRequest(data:any){
+    this.formData = new FormData();
+    this.URL = ConfigProvider.BASE_URL_ + 'submitrequest';
+    this.formData.append('CustomerID', this.customer_id);
+    this.formData.append('OrderRefNo', data.OrderRefNo);
+    this.formData.append('Reason', data.Reason);
+    this.formData.append('RequestType', data.RequestType);
+    return this.http.post(this.URL,
+      this.formData,
+      {
+        headers: this.headers,
+      }
+    );
+  }
 
+  getRequests() {
+    this.URL = ConfigProvider.BASE_URL_ + 'myrequest?customer_id=' + ConfigProvider.CUSTOMER_ID;    
+    return this.http.get(this.URL,
+      {
+        headers: this.headers,
+      }
+    );
+  }
 
 
 }

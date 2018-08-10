@@ -42,6 +42,8 @@ import { CustomerOrderViewPage } from '../pages/account/customer-order-view/cust
 import { CustomerWishlistPage } from '../pages/account/customer-wishlist/customer-wishlist';
 import { CustomerAccountEditPage } from '../pages/account/customer-account-edit/customer-account-edit';
 import { CustomerChangePasswordPage } from '../pages/account/customer-change-password/customer-change-password';
+import { CustomerRequestPage } from '../pages/account/customer-request/customer-request';
+import { CustomerRequestsPage } from '../pages/account/customer-requests/customer-requests';
 
 // shopping-cart
 import { CartPage } from '../pages/shopping-cart/cart/cart';
@@ -114,7 +116,9 @@ import { ScrollHideDirective } from '../directives/scroll-hide/scroll-hide';
     CustomerAccountEditPage,
     CustomerChangePasswordPage,
     CartSummaryComponent,
-    CartTermsComponent
+    CartTermsComponent,
+    CustomerRequestPage,
+    CustomerRequestsPage
   ],
   imports: [
     HttpClientModule,
@@ -159,7 +163,9 @@ import { ScrollHideDirective } from '../directives/scroll-hide/scroll-hide';
     CustomerAccountEditPage,
     CustomerChangePasswordPage,
     CartSummaryComponent,
-    CartTermsComponent
+    CartTermsComponent,
+    CustomerRequestPage,
+    CustomerRequestsPage
   ],
   providers: [
     StatusBar,

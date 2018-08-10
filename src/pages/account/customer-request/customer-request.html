@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar hideBackButton>
+    <ion-buttons left>
+      <button ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      {{heading_title}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="requestForm">
+    <div text-center>
+      <p ion-text color="danger" *ngIf="submitAttempt && error_warning">{{error_warning}}</p>
+      <p ion-text color="secondary" *ngIf="submitAttempt && success">{{success}}</p>
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label floating>Reason</ion-label>
+            <ion-input formControlName="Reason" type="text" [class.invalid]="!requestForm.controls.Reason.valid && (requestForm.controls.Reason.dirty || submitAttempt)"></ion-input>
+          </ion-item>
+          <p class="invalid-message" *ngIf="!requestForm.controls.Reason.valid  && (requestForm.controls.Reason.dirty || submitAttempt)">{{error_Reason}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+  <div padding>
+    <button ion-button color="primary" block (click)="save()">Send</button>
+  </div>
+</ion-content>

@@ -7,6 +7,7 @@ import { OrderProvider } from '../../../providers/order/order';
 import { AlertProvider } from '../../../providers/alert/alert';
 import { CustomerProvider } from '../../../providers/customer/customer';
 import { CustomerOrderViewPage } from '../customer-order-view/customer-order-view';
+import { CustomerRequestPage } from '../customer-request/customer-request';
 
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser';
 
@@ -93,7 +94,20 @@ export class CustomerOrderPage {
   }
 
 
+  cancelOrder(data: any) {
+    var postData = {
+      OrderRefNo: data.order_no,
+      RequestType: 'Cancel'
+    };
+    this.navCtrl.push(CustomerRequestPage, postData);
+  }
 
-
+  refundOrder(data: any) {
+    var postData = {
+      OrderRefNo: data.order_no,
+      RequestType: 'Refund'
+    };
+    this.navCtrl.push(CustomerRequestPage, postData);
+  }
 
 }
