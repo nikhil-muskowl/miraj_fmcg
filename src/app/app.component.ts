@@ -81,40 +81,53 @@ export class MyApp {
 
       // Confirm exit
       this.platform.registerBackButtonAction(() => {
-        if (this.nav.length() == 1) {
-          this.exitApp();
+        const overlayView = this.app._appRoot._overlayPortal._views[0];
+        if (overlayView && overlayView.dismiss) {
+          overlayView.dismiss();
+          return;
         }
-        this.nav.pop();
+        if (this.nav.canGoBack()) {
+          this.nav.pop();
+        }
+        else {
+          let view = this.nav.getActive();
+          if (view.component == HomePage) {
+            if (this.alert) {
+              this.alert.dismiss();
+              this.alert = null;
+            } else {
+              this.exitApp();
+            }
+          }
+        }
+        
       });
     });
   }
 
   exitApp() {
-    if (!this.alert) {
-
-      this.alert = this.alertCtrl.create({
-        title: 'Confirm',
-        message: 'Do you want to exit?',
-        buttons: [
-          {
-            text: "Cancel",
-            role: 'cancel',
-            handler: () => {
-              this.alert.dismiss();
-            }
-          },
-          {
-            text: "Yes",
-            handler: () => {
-              this.platform.exitApp();
-              this.alert.dismiss();
-            }
+    this.alert = this.alertCtrl.create({
+      title: 'Confirm',
+      message: 'Do you want to exit?',
+      buttons: [
+        {
+          text: "Cancel",
+          role: 'cancel',
+          handler: () => {
+            this.alert.dismiss();
           }
-        ]
-      });
+        },
+        {
+          text: "Yes",
+          handler: () => {
+            this.platform.exitApp();
+            this.alert.dismiss();
+          }
+        }
+      ]
+    });
 
-      this.alert.present();
-    }
+    this.alert.present();
   }
 
   openPage(page: PageInterface) {
