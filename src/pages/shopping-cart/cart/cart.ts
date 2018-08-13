@@ -76,7 +76,7 @@ export class CartPage {
     this.customerProvider.getData()
       .then((data) => {
         if (!data) {
-          this.navCtrl.setRoot(CustomerLoginPage);
+          this.navCtrl.push(CustomerLoginPage);
         }
         this.status = true;
       })
