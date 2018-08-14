@@ -82,25 +82,23 @@ export class MyApp {
 
       this.platform.registerBackButtonAction(() => {
         const overlayView = this.app._appRoot._overlayPortal._views[0];
-        
-        console.log(this.app.goBack());
-        
+
         if (overlayView && overlayView.dismiss) {
           overlayView.dismiss();
           return;
         }
 
-        let nav = this.app.getActiveNavs()[0];
-        let activeView = nav.getActive();
-        console.log(activeView);
-        if (nav.canGoBack()) {
-          nav.pop();
+        if (this.nav.canGoBack()) {
+          this.nav.pop();
         } else {
-          this.exitApp();          
+          this.exitApp();
         }
 
-      });
+      }, 0);
+
+
     });
+
   }
 
   exitApp() {
