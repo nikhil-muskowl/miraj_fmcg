@@ -95,7 +95,8 @@
                                 <ion-item>
                                     <ion-label>Option</ion-label>
                                     <ion-select [(ngModel)]="detail_id" formControlName="detail_id" interface="popover" [class.invalid]="!cartForm.controls.detail_id.valid && (cartForm.controls.detail_id.dirty || submitAttempt)">
-                                        <ion-option *ngFor="let productdetail of productdetaillist" value="{{productdetail.product_detail_id}}">{{productdetail.netweight}}, {{productdetail.price}}</ion-option>
+                                        <ion-option *ngFor="let productdetail of productdetaillist" value="{{productdetail.product_detail_id}}">{{productdetail.netweight}},
+                                            {{productdetail.price}}</ion-option>
                                     </ion-select>
                                 </ion-item>
                                 <p class="invalid-message" *ngIf="!cartForm.controls.detail_id.valid  && (cartForm.controls.detail_id.dirty || submitAttempt)">{{field_error}}</p>

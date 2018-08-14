@@ -28,13 +28,13 @@
                             <button ion-button color="primary" (click)="viewDetail(order)">
                                 View&nbsp;<ion-icon name="ios-eye-outline"></ion-icon>
                             </button>
-                            <button *ngIf="order.trackurl" ion-button color="secondary" (click)="trackOrder(order)">                                
+                            <button *ngIf="order.trackurl" ion-button color="secondary" (click)="trackOrder(order)">
                                 Track&nbsp;<ion-icon name="globe"></ion-icon>
                             </button>
-                            <button *ngIf="order.iscancel" ion-button color="secondary" (click)="cancelOrder(order)">                                
+                            <button *ngIf="order.iscancel" ion-button color="secondary" (click)="cancelOrder(order)">
                                 Cancel&nbsp;<ion-icon name="globe"></ion-icon>
                             </button>
-                            <button *ngIf="order.isrefund" ion-button color="secondary" (click)="refundOrder(order)">                                
+                            <button *ngIf="order.isrefund" ion-button color="secondary" (click)="refundOrder(order)">
                                 Refund&nbsp;<ion-icon name="globe"></ion-icon>
                             </button>
                         </ion-buttons>

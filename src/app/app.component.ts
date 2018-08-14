@@ -79,14 +79,13 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      // Confirm exit
       this.platform.registerBackButtonAction(() => {        
-        let nav = this.app.getActiveNavs()[0];                
+        let nav = this.app.getActiveNavs()[0];        
         if (nav.canGoBack()) {
           nav.pop();
         } else {
           this.exitApp();
-        }      
+        }
       });
     });
   }
