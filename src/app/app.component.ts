@@ -80,21 +80,13 @@ export class MyApp {
       this.splashScreen.hide();
 
       // Confirm exit
-      this.platform.registerBackButtonAction(() => {
-        const overlayView = this.app._appRoot._overlayPortal._views[0];
-        if (overlayView && overlayView.dismiss) {
-          overlayView.dismiss();
-          return;
-        }
-        if (this.nav.canGoBack()) {
-          this.nav.pop();
-        }else {
-          let view = this.nav.getActive();
-          if (view.component == HomePage) {
-            this.exitApp();
-          }
-        }
-        
+      this.platform.registerBackButtonAction(() => {        
+        let nav = this.app.getActiveNavs()[0];                
+        if (nav.canGoBack()) {
+          nav.pop();
+        } else {
+          this.exitApp();
+        }      
       });
     });
   }
@@ -108,14 +100,12 @@ export class MyApp {
           text: "Cancel",
           role: 'cancel',
           handler: () => {
-            this.alert.dismiss();
           }
         },
         {
           text: "Yes",
           handler: () => {
             this.platform.exitApp();
-            this.alert.dismiss();
           }
         }
       ]
