@@ -88,16 +88,10 @@ export class MyApp {
         }
         if (this.nav.canGoBack()) {
           this.nav.pop();
-        }
-        else {
+        }else {
           let view = this.nav.getActive();
           if (view.component == HomePage) {
-            if (this.alert) {
-              this.alert.dismiss();
-              this.alert = null;
-            } else {
-              this.exitApp();
-            }
+            this.exitApp();
           }
         }
         
