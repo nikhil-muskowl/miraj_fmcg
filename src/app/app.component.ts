@@ -47,7 +47,8 @@ export class MyApp {
   pages: PageInterface[] = [
     { title: 'home', name: 'TabsPage', component: TabsPage, tabComponent: HomePage, index: 0, icon: 'assets/icon/home.png' },
     { title: 'shop by categories', name: 'TabsPage', component: TabsPage, tabComponent: CategoriesPage, index: 1, icon: 'assets/icon/home.png' },
-    { title: 'profile', name: 'CustomerAccountPage', component: TabsPage, tabComponent: CustomerAccountPage, index: 3, icon: 'assets/icon/home.png' },
+    { title: 'profile', name: 'TabsPage', component: TabsPage, tabComponent: CustomerAccountPage, index: 3, icon: 'assets/icon/home.png' },
+
     { title: 'my wishlist', name: 'CustomerWishlistPage', component: CustomerWishlistPage, icon: 'assets/icon/home.png' },
     { title: 'my orders', name: 'CustomerOrderPage', component: CustomerOrderPage, icon: 'assets/icon/home.png' },
     { title: 'notification', name: 'NotificationsPage', component: NotificationsPage, icon: 'assets/icon/home.png' },
@@ -79,13 +80,25 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.platform.registerBackButtonAction(() => {        
-        let nav = this.app.getActiveNavs()[0];        
+      this.platform.registerBackButtonAction(() => {
+        const overlayView = this.app._appRoot._overlayPortal._views[0];
+        
+        console.log(this.app.goBack());
+        
+        if (overlayView && overlayView.dismiss) {
+          overlayView.dismiss();
+          return;
+        }
+
+        let nav = this.app.getActiveNavs()[0];
+        let activeView = nav.getActive();
+        console.log(activeView);
         if (nav.canGoBack()) {
           nav.pop();
         } else {
-          this.exitApp();
+          this.exitApp();          
         }
+
       });
     });
   }
