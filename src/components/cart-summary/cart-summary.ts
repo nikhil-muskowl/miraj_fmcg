@@ -10,7 +10,6 @@ export class CartSummaryComponent {
 
   text: string;
   public products;
-  public totalProducts;
   public totals;
   public hasProducts;
 
@@ -28,8 +27,7 @@ export class CartSummaryComponent {
         if (response) {
           // console.log(response);
           this.products = response.products;
-          this.totals = response.totals;
-          this.totalProducts = this.products.length;
+          this.totals = response.totals;       
           if (this.products && this.products.length > 0) {
             this.hasProducts = true;
           } else {

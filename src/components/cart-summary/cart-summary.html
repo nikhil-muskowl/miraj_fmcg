@@ -1,13 +1,5 @@
 <hr>
-<ion-list>
-  <ion-item>
-    <div item-start>
-      <h6> Total Products</h6>
-    </div>
-    <div item-end>
-      <p>{{totalProducts}}</p>
-    </div>
-  </ion-item>
+<ion-list>  
   <ion-item *ngFor="let total of totals;">
     <div item-start>
       <h6>{{total.title}}</h6>
