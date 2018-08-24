@@ -88,8 +88,11 @@ export class MyApp {
           return;
         }
 
-        if (this.nav.canGoBack()) {
-          this.nav.pop();
+        let nav = this.app.getActiveNavs()[0];
+        let activeView = nav.getActive();
+        console.log(activeView);
+        if (nav.canGoBack()) {
+          nav.pop();
         } else {
           this.exitApp();
         }
