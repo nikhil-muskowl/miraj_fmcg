@@ -189,17 +189,23 @@ export class CustomerAccountEditPage {
   ionViewDidLoad() {
   }
 
+
   logout() {
-    this.customerProvider.unSetData()
-      .then((data) => {
-        if (data) {
-          this.navCtrl.push(CustomerLoginPage);
-        }
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    this.customerProvider.unSetData();
+    this.navCtrl.push(CustomerLoginPage);
   }
+
+  // logout() {
+  //   this.customerProvider.unSetData()
+  //     .then((data) => {
+  //       if (data) {
+  //         this.navCtrl.push(CustomerLoginPage);
+  //       }
+  //     })
+  //     .catch(e => {
+  //       console.log(e);
+  //     });
+  // }
 
   public getCountry() {
     this.loadingProvider.present();

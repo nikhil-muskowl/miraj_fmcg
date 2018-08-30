@@ -83,16 +83,24 @@ export class CustomerOrderViewPage {
     return event;
   }
 
+  // isLogin() {
+  //   this.customerProvider.getData()
+  //     .then((data) => {
+  //       if (!data) {
+  //         this.navCtrl.push(CustomerLoginPage);
+  //       }
+  //     })
+  //     .catch(e => {
+  //       console.log(e);
+  //     });
+  // }
+
   isLogin() {
-    this.customerProvider.getData()
-      .then((data) => {
-        if (!data) {
-          this.navCtrl.push(CustomerLoginPage);
-        }
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    
+    if (!this.customerProvider.customer_id) {
+      this.navCtrl.push(CustomerLoginPage);
+    } 
+
   }
 
   viewDetail(data: any) {

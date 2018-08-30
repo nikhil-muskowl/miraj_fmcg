@@ -1,10 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContactValidator } from '../../../validators/contact';
 import { CustomerProvider } from '../../../providers/customer/customer';
 import { AlertProvider } from '../../../providers/alert/alert';
 import { LoadingProvider } from '../../../providers/loading/loading';
+
+import { CustomerLoginPage } from '../customer-login/customer-login';
+
+// import { DatePicker } from '@ionic-native/date-picker';
 
 @IonicPage()
 @Component({
@@ -23,6 +27,9 @@ export class CustomerRegisterPage {
   private customer_id;
   private text_message;
 
+  private dob: any;
+  private maxDate: string;
+
   // errors
   private error_fullname = 'field is required';
   private error_username = 'field is required';
@@ -32,6 +39,9 @@ export class CustomerRegisterPage {
   private error_confirm = 'field is required';
   private error_warning = 'You must agree to the Privacy Policy!';
 
+  private error_dob = 'please select date of birth';
+  private error_gender = 'field is required';
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -39,9 +49,22 @@ export class CustomerRegisterPage {
     private customerProvider: CustomerProvider,
     public alertProvider: AlertProvider,
     public loadingProvider: LoadingProvider,
+    //private datePicker: DatePicker
   ) {
     this.heading_title = 'Register With Us';
     this.createForm();
+  }
+  @ViewChild('datePicker') datePicker;
+  open() {
+      if (!this.dob) {
+          this.dob = new Date().toJSON().split('T')[0];
+          setTimeout(() => {
+              this.datePicker.open();
+          }, 50)
+      } else {
+          this.datePicker.open();
+      }
+
   }
 
   goBack() {
@@ -52,6 +75,7 @@ export class CustomerRegisterPage {
   ionViewDidLoad() {
 
   }
+
 
   save() {
     this.submitAttempt = true;
@@ -70,6 +94,7 @@ export class CustomerRegisterPage {
             this.customer_id = this.responseData.customer_id;
             this.registerForm.reset();
             this.submitAttempt = false;
+            this.navCtrl.push(CustomerLoginPage);
           }
 
           if (this.responseData.text_message != '') {
@@ -109,6 +134,16 @@ export class CustomerRegisterPage {
             this.error_confirm = this.responseData.error_confirm;
           }
 
+          if (this.responseData.error_dob != '') {
+            this.registerForm.controls['dob'].setErrors({ 'incorrect': true });
+            this.error_dob = this.responseData.error_dob;
+          }
+
+          if (this.responseData.error_gender != '') {
+            this.registerForm.controls['gender'].setErrors({ 'incorrect': true });
+            this.error_gender = this.responseData.error_gender;
+          }
+
           if (this.responseData.error_warning && this.responseData.error_warning != '') {
             this.error_warning = this.responseData.error_warning;
 
@@ -141,7 +176,9 @@ export class CustomerRegisterPage {
       email: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
       telephone: ['', ContactValidator.isValid],
       password: ['', Validators.required],
-      confirm: ['', Validators.required]
+      confirm: ['', Validators.required],
+      dob: ['', Validators.required],
+      gender: ['', Validators.required]
     });
   }
 

@@ -23,14 +23,14 @@
             <ion-row>
                 <ion-col>
                     <ion-item>
-                        <ion-label floating>fullname</ion-label>
+                        <ion-label floating>Fullname</ion-label>
                         <ion-input formControlName="fullname" type="text" [class.invalid]="!registerForm.controls.fullname.valid && (registerForm.controls.fullname.dirty || submitAttempt)"></ion-input>
                     </ion-item>
                     <p class="invalid-message" *ngIf="!registerForm.controls.fullname.valid  && (registerForm.controls.fullname.dirty || submitAttempt)">{{error_fullname}}</p>
                 </ion-col>
                 <ion-col>
                     <ion-item>
-                        <ion-label floating>username</ion-label>
+                        <ion-label floating>Username</ion-label>
                         <ion-input formControlName="username" type="text" [class.invalid]="!registerForm.controls.username.valid && (registerForm.controls.username.dirty || submitAttempt)"></ion-input>
                     </ion-item>
                     <p class="invalid-message" *ngIf="!registerForm.controls.username.valid  && (registerForm.controls.username.dirty || submitAttempt)">{{error_username}}</p>
@@ -76,6 +76,32 @@
                     <p class="invalid-message" *ngIf="!registerForm.controls.confirm.valid  && (registerForm.controls.confirm.dirty || submitAttempt)">{{error_confirm}}</p>
                 </ion-col>
             </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>Date of birth</ion-label>
+                        <ion-input placeholder="" [value]="dob | date:'dd-MMM-yyyy'" (click)="open()"></ion-input>
+                    </ion-item>
+                    <ion-item no-lines hidden="true">
+                        <ion-datetime #datePicker formControlName="dob" displayFormat="DD-MM-YYYY" pickerFormat="DD MMMM YYYY" (ionCancel)="this.dob  = null" [(ngModel)]="dob" doneText="Select" cancelText="Cancel" [max]="maxDate">
+                        </ion-datetime>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!registerForm.controls.dob.valid  && (registerForm.controls.dob.dirty || submitAttempt)">{{error_dob}}</p>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>Gender</ion-label>
+                        <ion-select [(ngModel)]="gender" formControlName="gender" [class.invalid]="!registerForm.controls.gender.valid && (registerForm.controls.gender.dirty || submitAttempt)">
+                            <ion-option value="Male">Male</ion-option>
+                            <ion-option value="Female">Female</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!registerForm.controls.gender.valid  && (registerForm.controls.gender.dirty || submitAttempt)">{{error_gender}}</p>
+                </ion-col>
+            </ion-row>
+
         </ion-grid>
     </form>
 

@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductProvider } from '../../../providers/product/product';
 import { CartProvider } from '../../../providers/cart/cart';
 import { WishlistProvider } from '../../../providers/wishlist/wishlist';
 import { LoadingProvider } from '../../../providers/loading/loading';
 import { AlertProvider } from '../../../providers/alert/alert';
+
+import { CartPage } from '../../shopping-cart/cart/cart';
+import { SearchProductsPage } from '../../../pages/products/search-products/search-products';
+import { FollowUsProvider } from '../../../providers/follow-us/follow-us';
 
 @IonicPage()
 @Component({
@@ -50,7 +54,9 @@ export class ProductPage {
     private wishlistProvider: WishlistProvider,
     public formBuilder: FormBuilder,
     public alertProvider: AlertProvider,
-    private loadingProvider: LoadingProvider
+    private loadingProvider: LoadingProvider,
+    private alertCtrl: AlertController,
+    private followUsProvider: FollowUsProvider,
   ) {
     this.product_id = this.navParams.data.product_id;
     this.getServerData();
@@ -125,7 +131,7 @@ export class ProductPage {
             this.success = this.responseData.success;
             this.alertProvider.title = 'Success';
             this.alertProvider.message = this.success;
-            this.alertProvider.showAlert();
+            this.showConfirm();
             this.submitAttempt = false;
           }
 
@@ -191,5 +197,40 @@ export class ProductPage {
 
   }
 
+  showConfirm() {
+    let confirm = this.alertCtrl.create({
+      title: 'Success',
+      message:  this.success,
+      buttons: [
+        {
+          text: 'Okay',
+          handler: () => {
+            //console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Goto cart',
+          handler: () => {
+            //console.log('Agree clicked');
+            //this.navcontroller.setRoot(CartPage);
+            this.navCtrl.push(CartPage);
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
+  goToSearch() {
+    this.navCtrl.push(SearchProductsPage);
+  }
+
+  goTocart() {
+    this.navCtrl.push(CartPage);
+  }
+
+  presentActionSheet() {
+    this.followUsProvider.presentActionSheet();
+  }
 
 }

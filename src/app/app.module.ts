@@ -14,6 +14,9 @@ import { IonicStorageModule } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { DatePicker } from '@ionic-native/date-picker';
+import { SocialSharing } from '@ionic-native/social-sharing';
+
 
 // pages
 import { HomePage } from '../pages/home/home';
@@ -79,6 +82,8 @@ import { HomeProvider } from '../providers/home/home';
 import { InformationProvider } from '../providers/information/information';
 
 import { ScrollHideDirective } from '../directives/scroll-hide/scroll-hide';
+import { StoresProvider } from '../providers/stores/stores';
+import { SocialSharingProvider } from '../providers/social-sharing/social-sharing';
 
 
 @NgModule({
@@ -187,6 +192,10 @@ import { ScrollHideDirective } from '../directives/scroll-hide/scroll-hide';
     WishlistProvider,
     HomeProvider,
     InformationProvider,
+    StoresProvider,
+    DatePicker,
+    SocialSharing,
+    SocialSharingProvider
   ]
 })
 export class AppModule { }

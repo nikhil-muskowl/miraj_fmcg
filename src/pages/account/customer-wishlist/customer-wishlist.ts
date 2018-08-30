@@ -22,6 +22,7 @@ export class CustomerWishlistPage {
   private success;
   private error_warning;
   public heading_title;
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private cartProvider: CartProvider,
@@ -32,10 +33,8 @@ export class CustomerWishlistPage {
     private customerProvider: CustomerProvider,
   ) {
     this.heading_title = 'Wishlist';
-    if (this.isLogin()) {
-      this.getServerData();
-    }
-
+    this.isLogin();
+    this.getServerData();
   }
 
   ionViewDidLoad() {
@@ -137,20 +136,11 @@ export class CustomerWishlistPage {
   }
 
   isLogin() {
-    this.status = true;
-    this.customerProvider.getData()
-      .then((data) => {
-        if (!data) {
-          this.navCtrl.push(CustomerLoginPage);
-        }
-        this.status = true;
-      })
-      .catch(e => {
-        console.log(e);
-        this.status = false;
-      });
+    
+    if (!this.customerProvider.customer_id) {
+      this.navCtrl.push(CustomerLoginPage);
+    } 
 
-    return this.status;
   }
 
   viewProductDetail(data: any) {

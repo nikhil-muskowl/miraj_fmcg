@@ -6,6 +6,7 @@ import { OrderProvider } from '../../../providers/order/order';
 import { LoadingProvider } from '../../../providers/loading/loading';
 import { AlertProvider } from '../../../providers/alert/alert';
 import { CartSuccessPage } from '../cart-success/cart-success';
+import { CustomerOrderPage } from '../../account/customer-order/customer-order';
 
 @IonicPage()
 @Component({
@@ -69,7 +70,7 @@ export class OrderConfirmPage {
           this.alertProvider.title = 'Success';
           this.alertProvider.message = this.success;
           this.alertProvider.showAlert();
-          this.navCtrl.push(CartSuccessPage, { redirecturl: this.responseData.redirecturl });
+          this.navCtrl.push(CustomerOrderPage, { redirecturl: this.responseData.redirecturl });
         }
 
         if (this.responseData.error && this.responseData.error != '') {

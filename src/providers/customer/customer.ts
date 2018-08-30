@@ -33,6 +33,8 @@ export class CustomerProvider {
   public zone_id = 0;
   public district_id = 0;
 
+  public res: any;
+
   constructor(
     public http: HttpClient,
     public storage: Storage,
@@ -43,6 +45,28 @@ export class CustomerProvider {
     this.headers.set('Content-Type', 'application/json; charset=utf-8');
 
     this.fillData();
+
+
+  }
+
+  clear() {
+    this.customer_id = 0;
+    this.fullname = '';
+    this.username = '';
+    this.email = '';
+    this.telephone = '';
+    this.country_id = 0;
+    this.zone_id = 0;
+    this.district_id = 0;
+    this.city = '';
+    this.postcode = '0';
+    this.address = '';
+  }
+
+  fillData() {
+    ConfigProvider.CUSTOMER_ID = this.getData();
+    this.customer_id = Number(this.getData());
+
 
     this.getCustomerData(this.customer_id).subscribe(
       response => {
@@ -64,42 +88,6 @@ export class CustomerProvider {
     );
   }
 
-  clear() {
-    this.customer_id = 0;
-    this.fullname = '';
-    this.username = '';
-    this.email = '';
-    this.telephone = '';
-    this.country_id = 0;
-    this.zone_id = 0;
-    this.district_id = 0;
-    this.city = '';
-    this.postcode = '0';
-    this.address = '';
-  }
-
-  fillData() {
-    this.getData()
-      .then((data) => {
-        if (data) {
-          ConfigProvider.CUSTOMER_ID = data.customer_id;
-          this.customer_id = data.customer_id;
-          this.fullname = data.fullname;
-          this.email = data.email;
-          this.telephone = data.telephone;
-          this.country_id = data.country_id;
-          this.zone_id = data.zone_id;
-          this.district_id = data.district_id;
-          this.city = data.city;
-          this.postcode = data.postcode;
-          this.address = data.address;
-        }
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
-
   apiRegister(data: any) {
     this.formData = new FormData();
     this.URL = ConfigProvider.BASE_URL_ + 'customerregistration';
@@ -110,6 +98,8 @@ export class CustomerProvider {
     this.formData.append('telephone', data.telephone);
     this.formData.append('password', data.password);
     this.formData.append('confirm', data.confirm);
+    this.formData.append('dob', data.dob);
+    this.formData.append('gender', data.gender);
     this.formData.append('agree', this.agree.toString());
 
     return this.http.post(this.URL,
@@ -145,53 +135,22 @@ export class CustomerProvider {
   }
 
   setData(data) {
-    return this.getCustomerData(data.customer_id).subscribe(
-      response => {
-        // console.log(response);
-        return this.storage.set('myData', response).then(
-          () => {
-            console.log('Stored item!');
-            this.fillData();
-            return true;
-          },
-          error => {
-            console.error('Error storing item', error);
-            return false;
-          }
-        );
-      },
-      err => {
-        console.error(err);
-        return false;
-      }
-    );
+    window.localStorage.setItem('myData', data.customer_id);
+    this.fillData();
   }
 
   unSetData() {
-    return this.storage.remove('myData').then(
-      () => {
-        console.log('Stored item remove!');
-        this.clear();
-        return true;
-      },
-      error => {
-        console.error('Error storing item remove', error);
-        return false;
-      }
-    );
+    this.clear();
+    try {
+      window.localStorage.removeItem('myData');
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 
-  getData(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.storage.get('myData')
-        .then((data) => {
-          resolve(data);
-        })
-        .catch(e => {
-          console.log(e);
-          reject(e);
-        });
-    });
+  getData() {
+    return window.localStorage.getItem('myData');
   }
 
   changeAccountData(data: any) {
@@ -230,20 +189,13 @@ export class CustomerProvider {
     );
   }
 
-  login(){
+  login() {
     
   }
 
   logout() {
-    this.unSetData()
-      .then((data) => {
-        if (data) {          
-          window.location.reload();
-        }
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    this.unSetData();
+    window.location.reload();
   }
 
 }

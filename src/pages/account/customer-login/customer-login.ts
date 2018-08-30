@@ -69,28 +69,34 @@ export class CustomerLoginPage {
   }
 
   save() {
+ 
     this.submitAttempt = true;
     this.formData = this.loginForm.valid;
 
     if (this.loginForm.valid) {
+  
       this.loadingProvider.present();
       this.customerProvider.apiLogin(this.loginForm.value).subscribe(
         response => {
           this.responseData = response;
 
           this.submitAttempt = true;
-
+         
           if (this.responseData.login) {
+       
             this.loginForm.reset();
             this.submitAttempt = false;
             this.customerProvider.setData(this.responseData.data);
             if (this.responseData.success && this.responseData.success != '') {
+         
               this.success = this.responseData.success;
               this.alertProvider.title = 'Success';
               this.alertProvider.message = this.success;
               this.alertProvider.showAlert();
             }
             this.navCtrl.setRoot(CustomerAccountPage);
+            //this.navCtrl.push(CustomerAccountPage);
+           
           }
 
 
@@ -114,22 +120,9 @@ export class CustomerLoginPage {
   }
 
   isLogin() {
-    this.status = true;
-    this.customerProvider.getData()
-      .then((data) => {
-        if (data) {
-          this.status = true;
-          this.navCtrl.push(CustomerAccountPage);
-        } else {
-          this.status = false;
-        }
-
-      })
-      .catch(e => {
-        console.log(e);
-        this.status = false;
-      });
-
-    return this.status;
+    if (this.customerProvider.customer_id) {
+      this.navCtrl.push(CustomerAccountPage);
+    }
+    
   }
 }

@@ -15,6 +15,7 @@ import { LoadingProvider } from '../../../providers/loading/loading';
 import { AlertProvider } from '../../../providers/alert/alert';
 import { ToastProvider } from '../../../providers/toast/toast';
 import { ModalProvider } from '../../../providers/modal/modal';
+
 // pages
 import { CustomerLoginPage } from '../../account/customer-login/customer-login';
 
@@ -57,9 +58,8 @@ export class CartPage {
     public modalProvider: ModalProvider
   ) {
     this.heading_title = 'My Shopping Cart';
-    if (this.isLogin()) {
-      this.getProducts();
-    }
+    this.isLogin();
+    this.getProducts();
     this.createForm();
   }
 
@@ -71,21 +71,13 @@ export class CartPage {
     this.navCtrl.pop();
   }
 
-  isLogin() {
-    this.status = true;
-    this.customerProvider.getData()
-      .then((data) => {
-        if (!data) {
-          this.navCtrl.push(CustomerLoginPage);
-        }
-        this.status = true;
-      })
-      .catch(e => {
-        console.log(e);
-        this.status = false;
-      });
 
-    return this.status;
+  isLogin() {
+    
+    if (!this.customerProvider.customer_id) {
+      this.navCtrl.push(CustomerLoginPage);
+    } 
+
   }
 
 
@@ -209,6 +201,8 @@ export class CartPage {
     this.modalProvider.presentProfileModal(CartEditFormPage, param);
 
     this.modalProvider.modal.onDidDismiss(data => {
+      // This is added to refresh page.
+      this.navCtrl.setRoot(this.navCtrl.getActive().component);
       this.getProducts();
     });
   }

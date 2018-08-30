@@ -109,16 +109,22 @@ export class CustomerChangePasswordPage {
 
   }
 
+  // logout() {
+  //   this.customerProvider.unSetData()
+  //     .then((data) => {
+  //       if (data) {
+  //         this.navCtrl.push(CustomerLoginPage);
+  //       }
+  //     })
+  //     .catch(e => {
+  //       console.log(e);
+  //     });
+  // }
+
   logout() {
-    this.customerProvider.unSetData()
-      .then((data) => {
-        if (data) {
-          this.navCtrl.push(CustomerLoginPage);
-        }
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    this.customerProvider.unSetData();
+    this.navCtrl.push(CustomerLoginPage);
   }
+
 
 }

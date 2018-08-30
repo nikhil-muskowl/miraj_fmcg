@@ -56,20 +56,15 @@ export class CustomerAccountPage {
   }
 
   isLogin() {
+    
     if (!this.customerProvider.customer_id) {
       this.navCtrl.push(CustomerLoginPage);
+    } else {
+      this.customer = this.customerProvider.fullname;
+      this.email = this.customerProvider.email;
+      this.telephone = this.customerProvider.telephone;
     }
-    this.customerProvider.getData()
-      .then((data) => {
-        if (data) {
-          this.customer = data.fullname;
-          this.email = data.email;
-          this.telephone = data.telephone;
-        }
-      })
-      .catch(e => {
-        console.log(e);
-      });
+
   }
 
   logout() {
@@ -105,7 +100,7 @@ export class CustomerAccountPage {
     this.navCtrl.push(CustomerOrderPage);
   }
 
-  gotoCustomerRequestsPage(){
+  gotoCustomerRequestsPage() {
     this.navCtrl.push(CustomerRequestsPage);
   }
 
@@ -122,7 +117,11 @@ export class CustomerAccountPage {
   }
 
   goToAccount() {
-    this.navCtrl.push(CustomerAccountPage);
+    if (!this.customerProvider.customer_id) {
+      this.navCtrl.push(CustomerLoginPage);
+    } else {
+      this.navCtrl.push(CustomerAccountPage);
+    }
   }
 
   goToHome() {

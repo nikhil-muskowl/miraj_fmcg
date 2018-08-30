@@ -34,7 +34,12 @@ export class AddressProvider {
   }
 
   getDistrict(id): any {
-    this.URL = ConfigProvider.BASE_URL_ + 'district?zone_id=' + id;
+    // this.URL = ConfigProvider.BASE_URL_ + 'district?zone_id=' + id;
+    if(id != 0){
+      this.URL = ConfigProvider.BASE_URL_ + 'district?zone_id=' + id;
+    } else {
+      this.URL = ConfigProvider.BASE_URL_ + 'district?zone_id=' + '28';
+    }
     return this.http.get(this.URL,
       {
         headers: this.headers,

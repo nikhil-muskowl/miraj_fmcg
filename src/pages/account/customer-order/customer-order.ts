@@ -25,6 +25,8 @@ export class CustomerOrderPage {
   private success;
   private error_warning;
   public heading_title;
+
+  private redirecturl = '';
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private orderProvider: OrderProvider,
@@ -36,7 +38,30 @@ export class CustomerOrderPage {
   ) {
     this.heading_title = 'My Orders';
     this.isLogin();
+
+    this.redirecturl = this.navParams.data.redirecturl;
+    if (this.redirecturl) {
+      this.Payment(this.redirecturl);
+    }
+
+
     this.getServerData();
+  }
+
+  Payment(url) {
+    if (url != '') {
+      const option: InAppBrowserOptions = {
+        zoom: 'no',
+        hardwareback: 'yes',
+        location: 'yes',
+        toolbar: 'yes',
+        footer: 'yes'
+      }
+
+      const browser = this.iab.create(url, '_self', option);
+      browser.show();
+
+    }
   }
 
   goBack() {
@@ -63,15 +88,11 @@ export class CustomerOrderPage {
   }
 
   isLogin() {
-    this.customerProvider.getData()
-      .then((data) => {
-        if (!data) {
-          this.navCtrl.push(CustomerLoginPage);
-        }
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    
+    if (!this.customerProvider.customer_id) {
+      this.navCtrl.push(CustomerLoginPage);
+    } 
+
   }
 
   viewDetail(data: any) {
