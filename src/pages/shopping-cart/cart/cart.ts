@@ -109,7 +109,7 @@ export class CartPage {
     this.loadingProvider.present();
     this.cartProvider.remove(data).subscribe(
       response => {
-        console.log(response);
+        //console.log(response);
         this.getProducts();
       },
       err => console.error(err),

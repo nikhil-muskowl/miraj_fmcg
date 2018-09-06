@@ -140,6 +140,8 @@ export class SearchProductsPage {
         special: this.products[index].special,
         tax: this.products[index].tax,
         discountrate: this.products[index].discountrate,
+        offerimage: this.products[index].offerimage,
+        vegsignimage: this.products[index].vegsignimage,
         minimum: this.products[index].minimum,
         rating: this.products[index].rating
       });

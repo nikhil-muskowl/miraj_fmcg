@@ -46,15 +46,15 @@ export class MyApp {
 
   pages: PageInterface[] = [
     { title: 'home', name: 'TabsPage', component: TabsPage, tabComponent: HomePage, index: 0, icon: 'assets/icon/home.png' },
-    { title: 'shop by categories', name: 'TabsPage', component: TabsPage, tabComponent: CategoriesPage, index: 1, icon: 'assets/icon/home.png' },
-    { title: 'profile', name: 'TabsPage', component: TabsPage, tabComponent: CustomerAccountPage, index: 3, icon: 'assets/icon/home.png' },
+    { title: 'shop by categories', name: 'TabsPage', component: TabsPage, tabComponent: CategoriesPage, index: 1, icon: 'assets/icon/category.png' },
+    { title: 'profile', name: 'TabsPage', component: TabsPage, tabComponent: CustomerAccountPage, index: 3, icon: 'assets/icon/Profile.png' },
 
-    { title: 'my wishlist', name: 'CustomerWishlistPage', component: CustomerWishlistPage, icon: 'assets/icon/home.png' },
-    { title: 'my orders', name: 'CustomerOrderPage', component: CustomerOrderPage, icon: 'assets/icon/home.png' },
-    { title: 'notification', name: 'NotificationsPage', component: NotificationsPage, icon: 'assets/icon/home.png' },
-    { title: 'terms & conditions', name: 'TermsAndConditionsPage', component: TermsAndConditionsPage, icon: 'assets/icon/home.png' },
-    { title: 'help & support', name: 'HelpAndSupportPage', component: HelpAndSupportPage, icon: 'assets/icon/home.png' },
-    { title: 'contact us', name: 'ContactUsPage', component: ContactUsPage, icon: 'assets/icon/home.png' },
+    { title: 'my wishlist', name: 'CustomerWishlistPage', component: CustomerWishlistPage, icon: 'assets/icon/Wishlist.png' },
+    { title: 'my orders', name: 'CustomerOrderPage', component: CustomerOrderPage, icon: 'assets/icon/My Order.png' },
+    { title: 'notification', name: 'NotificationsPage', component: NotificationsPage, icon: 'assets/icon/Notifications.png' },
+    { title: 'terms & conditions', name: 'TermsAndConditionsPage', component: TermsAndConditionsPage, icon: 'assets/icon/Terms.png' },
+    { title: 'help & support', name: 'HelpAndSupportPage', component: HelpAndSupportPage, icon: 'assets/icon/Help.png' },
+    { title: 'contact us', name: 'ContactUsPage', component: ContactUsPage, icon: 'assets/icon/Contact.png' },
   ];
 
   @ViewChild(Nav) nav: Nav;
@@ -162,6 +162,5 @@ export class MyApp {
     }
     return;
   }
-
 
 }

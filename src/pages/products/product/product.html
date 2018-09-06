@@ -48,8 +48,15 @@
         <ion-row>
             <ion-col col-12>
                 <div text-left>
-                    <h1 [innerHTML]="heading_title"></h1>
-
+                    <ion-row no-padding>
+                        <ion-col col-auto>
+                            <h1 [innerHTML]="heading_title"></h1>
+                        </ion-col>
+                        <ion-col align="center">
+                            <img style="float:left; margin-top: 24px;" id="vegimg" src="{{vegsignimage}}">
+                        </ion-col>
+                    </ion-row>
+        
                     <ion-row no-padding>
                         <ion-col>
                             <div *ngIf="price !=false; then showspecialprice else showprice"></div>
@@ -63,12 +70,14 @@
                                 <p>{{price}}</p>
                             </ng-template>
                         </ion-col>
-                        <ion-col text-center>
+                        <!-- <ion-col text-center>
                             <span *ngIf="discountrate" class="discount-off">{{discountrate}} % Off</span>
+                        </ion-col> -->
+                   
+                        <ion-col>
+                            <img id="offerimg" style="max-width: 50%; " src="{{offerimage}}">
                         </ion-col>
                     </ion-row>
-
-
 
 
                     <p>Availability: {{stock}}</p>
@@ -94,6 +103,48 @@
                 <div [ngSwitch]="review_tab">
                     <div *ngSwitchCase="'description'">
                         <p [innerHTML]="description"></p>
+
+                        <ion-row>
+                            <ion-col col-12>
+                                <hr>
+                                <form [formGroup]="cartForm">
+                                    <ion-grid>
+                                        <ion-row>
+                                            <ion-col>
+                                                <ion-item>
+                                                    <ion-label>Option</ion-label>
+                                                    <ion-select [(ngModel)]="detail_id" formControlName="detail_id" interface="popover" [class.invalid]="!cartForm.controls.detail_id.valid && (cartForm.controls.detail_id.dirty || submitAttempt)">
+                                                        <ion-option *ngFor="let productdetail of productdetaillist" value="{{productdetail.product_detail_id}}">{{productdetail.netweight}},
+                                                            {{productdetail.price}}</ion-option>
+                                                    </ion-select>
+                                                </ion-item>
+                                                <p class="invalid-message" *ngIf="!cartForm.controls.detail_id.valid  && (cartForm.controls.detail_id.dirty || submitAttempt)">{{field_error}}</p>
+                                            </ion-col>
+                                        </ion-row>
+                                        <ion-row>
+                                            <ion-col>
+                                                <ion-item>
+                                                    <ion-label floating>quantity</ion-label>
+                                                    <ion-input [(ngModel)]="cart_quantity" formControlName="quantity" type="text" [class.invalid]="!cartForm.controls.quantity.valid && (cartForm.controls.quantity.dirty || submitAttempt)"></ion-input>
+                                                </ion-item>
+                                                <p class="invalid-message" *ngIf="!cartForm.controls.quantity.valid  && (cartForm.controls.quantity.dirty || submitAttempt)">{{field_error}}</p>
+                                            </ion-col>
+                                        </ion-row>
+                                        <ion-row>
+                                            <ion-col>
+                                                <button width="50%" ion-button full (click)="save()"><ion-icon name="cart"></ion-icon>&nbsp; Add to cart</button>
+                                                <!-- <button ion-button full color="light" (click)="addWishlist()">Add to wishlist</button> -->
+                                            </ion-col>
+                                            <ion-col>
+                                                <!-- <button ion-button full (click)="save()">Add to cart</button> -->
+                                                <button width="50%" ion-button full color="light" (click)="addWishlist()"> <ion-icon name="checkbox-outline"></ion-icon>&nbsp; Add to wishlist</button>
+                                            </ion-col>
+                                        </ion-row>
+                                    </ion-grid>
+                                </form>
+                
+                            </ion-col>
+                        </ion-row>
                     </div>
                     <div *ngSwitchCase="'reviews'">
                         <product-review [productid]="product_id"></product-review>
@@ -103,42 +154,6 @@
         </ion-row>
 
 
-        <ion-row>
-            <ion-col col-12>
-                <hr>
-                <form [formGroup]="cartForm">
-                    <ion-grid>
-                        <ion-row>
-                            <ion-col>
-                                <ion-item>
-                                    <ion-label>Option</ion-label>
-                                    <ion-select [(ngModel)]="detail_id" formControlName="detail_id" interface="popover" [class.invalid]="!cartForm.controls.detail_id.valid && (cartForm.controls.detail_id.dirty || submitAttempt)">
-                                        <ion-option *ngFor="let productdetail of productdetaillist" value="{{productdetail.product_detail_id}}">{{productdetail.netweight}},
-                                            {{productdetail.price}}</ion-option>
-                                    </ion-select>
-                                </ion-item>
-                                <p class="invalid-message" *ngIf="!cartForm.controls.detail_id.valid  && (cartForm.controls.detail_id.dirty || submitAttempt)">{{field_error}}</p>
-                            </ion-col>
-                        </ion-row>
-                        <ion-row>
-                            <ion-col>
-                                <ion-item>
-                                    <ion-label floating>quantity</ion-label>
-                                    <ion-input [(ngModel)]="cart_quantity" formControlName="quantity" type="text" [class.invalid]="!cartForm.controls.quantity.valid && (cartForm.controls.quantity.dirty || submitAttempt)"></ion-input>
-                                </ion-item>
-                                <p class="invalid-message" *ngIf="!cartForm.controls.quantity.valid  && (cartForm.controls.quantity.dirty || submitAttempt)">{{field_error}}</p>
-                            </ion-col>
-                        </ion-row>
-                        <ion-row>
-                            <ion-col>
-                                <button ion-button full (click)="save()">Add to cart</button>
-                                <button ion-button full color="light" (click)="addWishlist()">Add to wishlist</button>
-                            </ion-col>
-                        </ion-row>
-                    </ion-grid>
-                </form>
-
-            </ion-col>
-        </ion-row>
+     
     </ion-grid>
 </ion-content>

@@ -7,6 +7,7 @@ import { AlertProvider } from '../../../providers/alert/alert';
 import { LoadingProvider } from '../../../providers/loading/loading';
 
 import { CustomerLoginPage } from '../customer-login/customer-login';
+import { CustomerAccountPage } from '../customer-account/customer-account';
 
 // import { DatePicker } from '@ionic-native/date-picker';
 
@@ -94,7 +95,14 @@ export class CustomerRegisterPage {
             this.customer_id = this.responseData.customer_id;
             this.registerForm.reset();
             this.submitAttempt = false;
-            this.navCtrl.push(CustomerLoginPage);
+
+            var data = {
+              customer_id:this.responseData.customer_id,
+            };
+
+            this.customerProvider.setData(data);
+            //this.navCtrl.push(CustomerLoginPage);
+            this.navCtrl.push(CustomerAccountPage);
           }
 
           if (this.responseData.text_message != '') {

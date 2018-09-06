@@ -20,7 +20,7 @@ export class CartProvider {
 
   products(): any {
     this.URL = ConfigProvider.BASE_URL_ + 'cart?customer_id=' + this.customerProvider.customer_id + '&postcode=' + this.customerProvider.postcode;
-    console.log(this.URL);
+   // console.log(this.URL);
     return this.http.get(this.URL,
       {
         headers: this.headers,
@@ -30,6 +30,7 @@ export class CartProvider {
 
   add(data: any): any {
     this.formData = new FormData();
+    console.log(data);
     this.URL = ConfigProvider.BASE_URL_ + 'addcart';
     this.formData.append('customer_id', this.customerProvider.customer_id.toString());
     this.formData.append('product_id', data.product_id);

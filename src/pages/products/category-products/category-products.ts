@@ -6,6 +6,10 @@ import { ProductPage } from '../product/product';
 import { ActionSheetController } from 'ionic-angular';
 import { LoadingProvider } from '../../../providers/loading/loading';
 
+import { CartPage } from '../../shopping-cart/cart/cart';
+import { SearchProductsPage } from '../../../pages/products/search-products/search-products';
+import { FollowUsProvider } from '../../../providers/follow-us/follow-us';
+
 @IonicPage()
 @Component({
   selector: 'page-category-products',
@@ -38,6 +42,7 @@ export class CategoryProductsPage {
     private productsProvider: ProductProvider,
     public actionSheetCtrl: ActionSheetController,
     private loadingProvider: LoadingProvider,
+    private followUsProvider: FollowUsProvider,
   ) {
     this.category_id = this.navParams.data.category_id;
     this.getServerData();
@@ -136,6 +141,8 @@ export class CategoryProductsPage {
         special: this.products[index].special,
         tax: this.products[index].tax,
         discountrate: this.products[index].discountrate,
+        offerimage: this.products[index].offerimage,
+        vegsignimage: this.products[index].vegsignimage,
         minimum: this.products[index].minimum,
         rating: this.products[index].rating
       });
@@ -166,6 +173,18 @@ export class CategoryProductsPage {
     setTimeout(() => {
       infiniteScroll.complete();
     }, 500);
+  }
+
+  goToSearch() {
+    this.navCtrl.push(SearchProductsPage);
+  }
+
+  goTocart() {
+    this.navCtrl.push(CartPage);
+  }
+
+  presentActionSheet() {
+    this.followUsProvider.presentActionSheet();
   }
 
 }

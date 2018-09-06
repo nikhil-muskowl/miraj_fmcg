@@ -66,10 +66,10 @@ export class OrderConfirmPage {
       response => {
         this.responseData = response;
         if (this.responseData.success && this.responseData.success != '') {
-          this.success = this.responseData.success;
-          this.alertProvider.title = 'Success';
-          this.alertProvider.message = this.success;
-          this.alertProvider.showAlert();
+          // this.success = this.responseData.success;
+          // this.alertProvider.title = 'Success';
+          // this.alertProvider.message = this.success;
+          // this.alertProvider.showAlert();
           this.navCtrl.push(CustomerOrderPage, { redirecturl: this.responseData.redirecturl });
         }
 

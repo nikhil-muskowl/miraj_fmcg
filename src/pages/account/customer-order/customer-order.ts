@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform  } from 'ionic-angular';
 import { ActionSheetController } from 'ionic-angular';
 import { CustomerLoginPage } from '../customer-login/customer-login';
 import { LoadingProvider } from '../../../providers/loading/loading';
@@ -10,6 +10,7 @@ import { CustomerOrderViewPage } from '../customer-order-view/customer-order-vie
 import { CustomerRequestPage } from '../customer-request/customer-request';
 
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser';
+import { CustomerAccountPage } from '../customer-account/customer-account';
 
 @IonicPage()
 @Component({
@@ -34,7 +35,8 @@ export class CustomerOrderPage {
     public alertProvider: AlertProvider,
     private loadingProvider: LoadingProvider,
     private customerProvider: CustomerProvider,
-    private iab: InAppBrowser
+    private iab: InAppBrowser, 
+    public platform: Platform
   ) {
     this.heading_title = 'My Orders';
     this.isLogin();
@@ -45,7 +47,7 @@ export class CustomerOrderPage {
     }
 
 
-    this.getServerData();
+    
   }
 
   Payment(url) {
@@ -53,7 +55,7 @@ export class CustomerOrderPage {
       const option: InAppBrowserOptions = {
         zoom: 'no',
         hardwareback: 'yes',
-        location: 'yes',
+        location: 'no',
         toolbar: 'yes',
         footer: 'yes'
       }
@@ -65,11 +67,12 @@ export class CustomerOrderPage {
   }
 
   goBack() {
-    this.navCtrl.pop();
+    //this.navCtrl.pop();
+    this.navCtrl.setRoot(CustomerAccountPage);
   }
 
   ionViewDidLoad() {
-
+    this.getServerData();
   }
 
   public getServerData() {
@@ -129,6 +132,36 @@ export class CustomerOrderPage {
       RequestType: 'Refund'
     };
     this.navCtrl.push(CustomerRequestPage, postData);
+  }
+
+  paymentOrder(data: any) {
+    if (data.paymenturl != '') {
+      const option: InAppBrowserOptions = {
+        zoom: 'no',
+        hardwareback: 'yes',
+        location: 'no',
+        toolbar: 'yes',
+        footer: 'yes'
+      }
+
+      this.platform.ready().then(() => {
+        const browser = this.iab.create(data.paymenturl, '_self', option);
+        browser.show();
+
+        browser.on('exit').subscribe(() => {
+          this.getServerData();
+        }, err => 
+            console.error(err));
+       // });
+    
+        this.platform.registerBackButtonAction(() => {
+         
+          this.navCtrl.setRoot(CustomerOrderPage);
+          this.navCtrl.setRoot(this.navCtrl.getActive().component);
+       });
+    });
+
+    }
   }
 
 }

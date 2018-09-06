@@ -44,6 +44,8 @@ export class CustomerProvider {
     this.headers.set('Access-Control-Allow-Origin ', '*');
     this.headers.set('Content-Type', 'application/json; charset=utf-8');
 
+    this.customer_id = Number(this.getData());
+
     this.fillData();
 
 
@@ -64,9 +66,6 @@ export class CustomerProvider {
   }
 
   fillData() {
-    ConfigProvider.CUSTOMER_ID = this.getData();
-    this.customer_id = Number(this.getData());
-
 
     this.getCustomerData(this.customer_id).subscribe(
       response => {
@@ -135,14 +134,17 @@ export class CustomerProvider {
   }
 
   setData(data) {
+    //console.log( data.customer_id);
+    this.customer_id = data.customer_id;
     window.localStorage.setItem('myData', data.customer_id);
     this.fillData();
   }
 
   unSetData() {
-    this.clear();
+
     try {
       window.localStorage.removeItem('myData');
+      this.clear();
       return true;
     } catch (error) {
       return false;
@@ -150,7 +152,13 @@ export class CustomerProvider {
   }
 
   getData() {
-    return window.localStorage.getItem('myData');
+
+    try {
+      return window.localStorage.getItem('myData');
+    } catch (error) {
+      return 0;
+    }
+
   }
 
   changeAccountData(data: any) {
@@ -190,7 +198,7 @@ export class CustomerProvider {
   }
 
   login() {
-    
+
   }
 
   logout() {

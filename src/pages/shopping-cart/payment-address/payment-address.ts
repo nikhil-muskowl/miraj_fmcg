@@ -14,7 +14,7 @@ import { CustomerProvider } from '../../../providers/customer/customer';
   templateUrl: 'payment-address.html',
 })
 export class PaymentAddressPage {
-  private heading_title = 'Payment Address';
+  private heading_title = 'Billing Address';
 
   // list
   public districts;

@@ -5,13 +5,34 @@
                 <ion-icon name="arrow-back"></ion-icon>
             </button>
         </ion-buttons>
-        <ion-title>
+        <!-- <ion-title>
             {{heading_title}}
+        </ion-title> -->
+        <ion-title text-center>
+            <img src="assets/imgs/logo.png" width="100" height="50">
         </ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="goToSearch()">
+                <ion-icon name="search"></ion-icon>
+            </button>                       
+            <button ion-button icon-only (click)="goTocart()">
+                <ion-icon name="cart"></ion-icon>
+            </button>
+            <button ion-button icon-only (click)="presentActionSheet($event)">
+                <ion-icon name="share"></ion-icon>
+            </button>
+        </ion-buttons>
+
     </ion-navbar>
 </ion-header>
 
 <ion-content>
+
+    <!-- <div padding>
+        <h1 align="center" [innerHTML]="heading_title"></h1>
+    </div> -->
+    <h1 text-center>{{heading_title}}</h1>
 
     <ion-buttons text-center>
         <button ion-button (click)="presentLimitActionSheet($event)">
@@ -28,8 +49,6 @@
         <p [innerHTML]="description"></p>
     </div>
     
-
-
     <ion-grid>
         <ion-row>
             <ion-col id="productdec" col-6 *ngFor="let product of productModel;">
@@ -39,6 +58,7 @@
                     </div>
 
                     <ion-card-content>
+        
                         <ion-card-title>
                             {{product.name}}
                         </ion-card-title>
@@ -48,7 +68,7 @@
                                 <div *ngIf="product.special !=false; then specialprice else price"></div>
 
                                 <ng-template #price>
-                                    <p>{{product.price}}</p>
+                                    <p>{{product.price}}</p><img style="float:right;" id="vegimg" src="{{product.vegsignimage}}">
                                 </ng-template>
 
                                 <ng-template #specialprice>
@@ -56,8 +76,14 @@
                                     <p>{{product.special}}</p>
                                 </ng-template>
                             </ion-col>
-                            <ion-col text-center>
+                            <!-- <ion-col text-center>
                                 <span *ngIf="product.discountrate" class="discount-off">{{product.discountrate}} % Off</span>
+                            </ion-col> -->
+                        </ion-row>
+
+                        <ion-row no-padding>
+                            <ion-col>
+                                <img id="offerimg" src="{{product.offerimage}}">
                             </ion-col>
                         </ion-row>
 

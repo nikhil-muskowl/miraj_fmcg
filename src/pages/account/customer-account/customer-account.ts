@@ -33,7 +33,7 @@ export class CustomerAccountPage {
   public customer;
   public email;
   public telephone;
-  public responseDbData;
+  public responseData;
 
   constructor(
     private customerProvider: CustomerProvider,
@@ -52,19 +52,30 @@ export class CustomerAccountPage {
   }
 
   ionViewDidLoad() {
-
+   
   }
 
   isLogin() {
-    
+    console.log(this.customerProvider.customer_id);
     if (!this.customerProvider.customer_id) {
-      this.navCtrl.push(CustomerLoginPage);
+      this.navCtrl.setRoot(CustomerLoginPage);
     } else {
-      this.customer = this.customerProvider.fullname;
-      this.email = this.customerProvider.email;
-      this.telephone = this.customerProvider.telephone;
+      this.customerProvider.getCustomerData(this.customerProvider.customer_id).subscribe(
+        response => {
+          if (response) {
+            this.responseData = response;
+            this.customer = this.responseData.fullname;
+            this.email = this.responseData.email;
+            this.telephone = this.responseData.telephone;
+           
+          }
+        },
+        err => console.error(err),
+        () => {
+        }
+      );
     }
-
+    
   }
 
   logout() {
@@ -83,6 +94,7 @@ export class CustomerAccountPage {
           text: 'Yes',
           handler: () => {
             this.customerProvider.logout();
+            this.navCtrl.push(HomePage);
             console.log('Buy clicked');
           }
         }

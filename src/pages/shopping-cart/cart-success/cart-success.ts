@@ -49,6 +49,7 @@ export class CartSuccessPage {
            
             // this.navCtrl.push(CustomerOrderPage);
             this.navCtrl.setRoot(CustomerOrderPage);
+            this.navCtrl.setRoot(this.navCtrl.getActive().component);
             // backAction();
          });
       });

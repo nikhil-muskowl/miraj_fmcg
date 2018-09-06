@@ -62,6 +62,7 @@ export class CustomerLoginPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CustomerLoginPage');
+    this.isLogin();
   }
 
   goToRegsiter() {
@@ -69,34 +70,40 @@ export class CustomerLoginPage {
   }
 
   save() {
- 
+
     this.submitAttempt = true;
     this.formData = this.loginForm.valid;
 
     if (this.loginForm.valid) {
-  
+
       this.loadingProvider.present();
+
       this.customerProvider.apiLogin(this.loginForm.value).subscribe(
         response => {
           this.responseData = response;
 
           this.submitAttempt = true;
-         
+
           if (this.responseData.login) {
-       
+
             this.loginForm.reset();
             this.submitAttempt = false;
+           
+           
             this.customerProvider.setData(this.responseData.data);
+            
             if (this.responseData.success && this.responseData.success != '') {
-         
+
               this.success = this.responseData.success;
               this.alertProvider.title = 'Success';
               this.alertProvider.message = this.success;
               this.alertProvider.showAlert();
             }
+
+           
             this.navCtrl.setRoot(CustomerAccountPage);
             //this.navCtrl.push(CustomerAccountPage);
-           
+
           }
 
 
@@ -123,6 +130,6 @@ export class CustomerLoginPage {
     if (this.customerProvider.customer_id) {
       this.navCtrl.push(CustomerAccountPage);
     }
-    
+
   }
 }
