@@ -51,7 +51,31 @@
                     <p class="invalid-message" *ngIf="!accountForm.controls.telephone.valid  && (accountForm.controls.telephone.dirty || submitAttempt)">{{error_telephone}}</p>
                 </ion-col>
             </ion-row>
-
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>Date of birth</ion-label>
+                        <ion-input placeholder="" [value]="dob | date:'dd-MMM-yyyy'" (click)="open()"></ion-input>
+                    </ion-item>
+                    <ion-item no-lines hidden="true">
+                        <ion-datetime #datePicker formControlName="dob" displayFormat="DD-MM-YYYY" pickerFormat="DD MMMM YYYY" (ionCancel)="this.dob  = null" [(ngModel)]="dob" doneText="Select" cancelText="Cancel" [max]="maxDate">
+                        </ion-datetime>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!accountForm.controls.dob.valid  && (accountForm.controls.dob.dirty || submitAttempt)">{{error_dob}}</p>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>Gender</ion-label>
+                        <ion-select [(ngModel)]="gender" formControlName="gender" [class.invalid]="!accountForm.controls.gender.valid && (accountForm.controls.gender.dirty || submitAttempt)">
+                            <ion-option value="Male">Male</ion-option>
+                            <ion-option value="Female">Female</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <p class="invalid-message" *ngIf="!accountForm.controls.gender.valid  && (accountForm.controls.gender.dirty || submitAttempt)">{{error_gender}}</p>
+                </ion-col>
+            </ion-row>
             <ion-row>
                 <ion-col>
                     <ion-item>

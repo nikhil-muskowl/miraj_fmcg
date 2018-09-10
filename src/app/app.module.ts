@@ -85,6 +85,10 @@ import { ScrollHideDirective } from '../directives/scroll-hide/scroll-hide';
 import { StoresProvider } from '../providers/stores/stores';
 import { SocialSharingProvider } from '../providers/social-sharing/social-sharing';
 
+// This is added on 07/09/2018 for No Network Access //
+import { NetworkProvider } from '../providers/network/network';
+import { Network } from '@ionic-native/network';
+
 
 @NgModule({
 
@@ -195,7 +199,9 @@ import { SocialSharingProvider } from '../providers/social-sharing/social-sharin
     StoresProvider,
     DatePicker,
     SocialSharing,
-    SocialSharingProvider
+    SocialSharingProvider,
+    Network,
+    NetworkProvider
   ]
 })
 export class AppModule { }

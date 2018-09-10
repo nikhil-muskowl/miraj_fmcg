@@ -55,4 +55,17 @@ page-search-products {
 
     // -------------------------------------
 
+    
+    // Added on 07/09/2018 to fix Product image area on ion-card
+
+    #pro-img {
+        height: 60%;
+    }
+
+    .product #pro-img img {
+        height: auto;
+    }
+    
+
+    // -------------------------------------
 }

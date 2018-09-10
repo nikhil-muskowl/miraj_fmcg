@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { App, Nav, Platform, IonicApp, MenuController } from 'ionic-angular';
+import { App, Nav, Platform, IonicApp, MenuController, Events  } from 'ionic-angular';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -24,6 +24,11 @@ import { NotificationsPage } from '../pages/public/notifications/notifications';
 import { ContactUsPage } from '../pages/public/contact-us/contact-us';
 
 import { AlertController, Alert } from 'ionic-angular';
+
+ // This is added on 07/09/2018 for No Network Access
+import { Network } from '@ionic-native/network';
+import { NetworkProvider } from '../providers/network/network';
+
 
 export interface PageInterface {
   title: string;
@@ -68,7 +73,11 @@ export class MyApp {
     private followUsProvider: FollowUsProvider,
     public app: App,
     public menu: MenuController,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public events: Events,
+    public network: Network,
+    public networkProvider: NetworkProvider
+    //private netService: NetworkServiceProvider
   ) {
     this.initializeApp();
   }
@@ -77,6 +86,24 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+
+      // This is added on 07/09/2018 for No Network Access //
+
+      this.networkProvider.initializeNetworkEvents();
+ 
+      // Offline event
+      //console.log(this.events);
+      this.events.subscribe('network:offline', () => {
+        console.log('offline');
+         // alert('network:offline ==> '+this.network.type);    
+      });
+
+      // Online event
+      this.events.subscribe('network:online', () => {
+        console.log('online');
+          //alert('network:online ==> '+this.network.type);     
+      });
+
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
@@ -162,5 +189,43 @@ export class MyApp {
     }
     return;
   }
+
+  // Added on 07/09/2018 for Follow Us on Socials
+
+  // instagramShare() {
+  //   this.socialSharing.appName = 'instagram';
+  //   this.socialSharing.message = null;
+  //   this.socialSharing.subject = null;
+  //   this.socialSharing.image = null;
+  //   this.socialSharing.url = this.url;
+  //   this.socialSharing.shareVia();
+  // }
+
+  // whatsappShare() {
+  //   this.socialSharing.appName = 'whatsapp';
+  //   this.socialSharing.message = this.message;
+  //   this.socialSharing.subject = this.subject;
+  //   this.socialSharing.image = this.appimage;
+  //   this.socialSharing.url = this.url;
+  //   this.socialSharing.shareVia();
+  // }
+
+  // twitterShare() {
+  //   this.socialSharing.appName = 'twitter';
+  //   this.socialSharing.message = this.message;
+  //   this.socialSharing.subject = this.subject;
+  //   this.socialSharing.image = this.appimage;
+  //   this.socialSharing.url = this.url;
+  //   this.socialSharing.shareVia();
+  // }
+
+  // facebookShare() {
+  //   this.socialSharing.appName = 'facebook';
+  //   this.socialSharing.message = null;
+  //   this.socialSharing.subject = null;
+  //   this.socialSharing.image = null;
+  //   this.socialSharing.url = this.url;
+  //   this.socialSharing.shareVia();
+  // }
 
 }

@@ -32,8 +32,8 @@
         <ion-row>
             <ion-col id="productdec" col-6 *ngFor="let product of productModel;">
                 <ion-card class="product" (click)="getProductDetail(product)">
-                    <div>
-                        <img src="{{product.thumb}}" width="50%" height="50%">
+                    <div id="pro-img">
+                        <img src="{{product.thumb}}" width="50%" height="80%">
                     </div>
 
                     <ion-card-content>

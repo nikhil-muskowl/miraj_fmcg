@@ -26,6 +26,8 @@ export class CustomerProvider {
   public username = '';
   public email = '';
   public telephone = '';
+  public dob = '';
+  public gender = '';
   public address = '';
   public postcode = '0';
   public city = '';
@@ -57,6 +59,8 @@ export class CustomerProvider {
     this.username = '';
     this.email = '';
     this.telephone = '';
+    this.dob = '';
+    this.gender = '';
     this.country_id = 0;
     this.zone_id = 0;
     this.district_id = 0;
@@ -74,6 +78,8 @@ export class CustomerProvider {
           this.fullname = this.responseData.fullname;
           this.email = this.responseData.email;
           this.telephone = this.responseData.telephone;
+          this.dob = this.responseData.dob;
+          this.gender = this.responseData.gender;
           this.zone_id = this.responseData.zone_id;
           this.district_id = this.responseData.district_id;
           this.postcode = this.responseData.postcode;
@@ -162,12 +168,16 @@ export class CustomerProvider {
   }
 
   changeAccountData(data: any) {
+    console.log(data);
     this.formData = new FormData();
-    this.URL = ConfigProvider.BASE_URL_ + 'updateaccountdetail?customer_id=' + ConfigProvider.CUSTOMER_ID;
+    //this.URL = ConfigProvider.BASE_URL_ + 'updateaccountdetail?customer_id=' + ConfigProvider.CUSTOMER_ID;
+    this.URL = ConfigProvider.BASE_URL_ + 'updateaccountdetail?customer_id=' + this.customer_id;
 
     this.formData.append('fullname', data.fullname);
     this.formData.append('email', data.email);
     this.formData.append('telephone', data.telephone);
+    this.formData.append('dob', data.dob);
+    this.formData.append('gender', data.gender);
     this.formData.append('country_id', data.country_id);
     this.formData.append('zone_id', data.zone_id);
     this.formData.append('district_id', data.district_id);
@@ -185,7 +195,8 @@ export class CustomerProvider {
 
   changePassword(data: any) {
     this.formData = new FormData();
-    this.URL = ConfigProvider.BASE_URL_ + 'changepassword?customer_id=' + ConfigProvider.CUSTOMER_ID;
+    //this.URL = ConfigProvider.BASE_URL_ + 'changepassword?customer_id=' + ConfigProvider.CUSTOMER_ID;
+    this.URL = ConfigProvider.BASE_URL_ + 'changepassword?customer_id=' + this.customer_id;
     this.formData.append('currentpassword', data.currentpassword);
     this.formData.append('password', data.password);
     this.formData.append('confirm', data.confirm);

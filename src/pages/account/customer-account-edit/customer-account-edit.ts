@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild  } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContactValidator } from '../../../validators/contact';
@@ -35,6 +35,8 @@ export class CustomerAccountEditPage {
   public lastname = '';
   public email = '';
   public telephone = '';
+  private dob ='';
+  private gender = '';
   private address;
   private postcode;
   private city;
@@ -42,11 +44,15 @@ export class CustomerAccountEditPage {
   private district_id = 1;
   private zone_id = 1;
 
+  private maxDate: string;
+
   // errors
   private error_fullname = 'field is required';
   private error_lastname = 'field is required';
   private error_email = 'field is required';
   private error_telephone = 'field is required';
+  private error_dob = 'field is required';
+  private error_gender = 'field is required';
   private error_address = 'field is required';
   private error_country_id = 'field is required';
   private error_district_id = 'field is required';
@@ -65,10 +71,11 @@ export class CustomerAccountEditPage {
   ) {
 
     this.heading_title = 'Edit Account Details';
-
     this.fullname = this.customerProvider.fullname;
     this.email = this.customerProvider.email;
     this.telephone = this.customerProvider.telephone;
+    this.dob = this.customerProvider.dob;
+    this.gender = this.customerProvider.gender;
     this.zone_id = this.customerProvider.zone_id;
     this.district_id = this.customerProvider.district_id;
     this.postcode = this.customerProvider.postcode;
@@ -79,6 +86,17 @@ export class CustomerAccountEditPage {
     this.getZone(this.country_id);
     this.getDistrict(this.zone_id);
     this.createForm();
+  } @ViewChild('datePicker') datePicker;
+  open() {
+      if (!this.dob) {
+          this.dob = new Date().toJSON().split('T')[0];
+          setTimeout(() => {
+              this.datePicker.open();
+          }, 50)
+      } else {
+          this.datePicker.open();
+      }
+
   }
 
   goBack() {
@@ -90,6 +108,8 @@ export class CustomerAccountEditPage {
       fullname: [this.fullname, Validators.compose([Validators.maxLength(32), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       email: [this.email, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])],
       telephone: [this.telephone, ContactValidator.isValid],
+      dob: [this.dob, Validators.required],
+      gender: [this.gender, Validators.required],
       country_id: [this.country_id, Validators.required],
       zone_id: [this.zone_id, Validators.required],
       district_id: [this.district_id, Validators.required],
@@ -110,7 +130,7 @@ export class CustomerAccountEditPage {
         response => {
           this.responseData = response;
           this.submitAttempt = true;
-
+          console.log(this.responseData);
           if (this.responseData.success && this.responseData.success != '') {
             this.success = this.responseData.success;
             this.alertProvider.title = 'Success';
@@ -132,6 +152,16 @@ export class CustomerAccountEditPage {
           if (this.responseData.error_telephone != '') {
             this.accountForm.controls['telephone'].setErrors({ 'incorrect': true });
             this.error_telephone = this.responseData.error_telephone;
+          }
+
+          if (this.responseData.error_dob != '') {
+            this.accountForm.controls['dob'].setErrors({ 'incorrect': true });
+            this.error_dob = this.responseData.error_dob;
+          }
+
+          if (this.responseData.error_gender != '') {
+            this.accountForm.controls['gender'].setErrors({ 'incorrect': true });
+            this.error_gender = this.responseData.error_gender;
           }
 
           if (this.responseData.error_country_id != '') {

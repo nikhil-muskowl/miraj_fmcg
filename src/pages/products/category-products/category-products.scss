@@ -52,5 +52,18 @@ page-category-products {
         max-width: 13%;
         margin-top: -21px;
     }
+
+    // -----------------------------------
+
+    // Added on 07/09/2018 to fix Product image area on ion-card
+
+    #pro-img {
+        height: 60%;
+    }
+
+    .product #pro-img img {
+        height: auto;
+    }
+    
     // -------------------------------------
 }

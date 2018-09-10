@@ -27,8 +27,8 @@
 
 <ion-content #pageContent fullscreen>
 
-    <!-- <h1 text-center>{{heading_title}}</h1> -->
-    <h1 text-center>Offers</h1>
+    <h1 text-center>{{heading_title}}</h1>
+    <!-- <h1 text-center>Offers</h1> -->
 
     <ion-buttons text-center>
         <button ion-button (click)="presentLimitActionSheet($event)">
@@ -46,7 +46,7 @@
             <ion-col col-6 id="productdec" *ngFor="let product of productModel;">
 
                 <ion-card class="product" (click)="getProductDetail(product)">
-                    <div>
+                    <div id="pro-img">
                         <img src="{{product.thumb}}" width="50%" height="50%">
                     </div>
 
