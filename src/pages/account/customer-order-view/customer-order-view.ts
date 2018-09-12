@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { ActionSheetController } from 'ionic-angular';
 import { CustomerLoginPage } from '../customer-login/customer-login';
 import { LoadingProvider } from '../../../providers/loading/loading';
@@ -7,6 +7,10 @@ import { OrderProvider } from '../../../providers/order/order';
 import { AlertProvider } from '../../../providers/alert/alert';
 import { CustomerProvider } from '../../../providers/customer/customer';
 import { ProductPage } from '../../products/product/product';
+
+// Added on 10/09/2018 to handel user Order View Page hardware back button 
+import { CustomerOrderPage } from '../customer-order/customer-order';
+
 @IonicPage()
 @Component({
   selector: 'page-customer-order-view',
@@ -37,6 +41,7 @@ export class CustomerOrderViewPage {
     public alertProvider: AlertProvider,
     private loadingProvider: LoadingProvider,
     private customerProvider: CustomerProvider,
+    public platform: Platform
   ) {
 
     this.isLogin();
@@ -44,6 +49,11 @@ export class CustomerOrderViewPage {
     this.getServerData();
 
     this.heading_title = 'Order Details';
+
+    // Added on 10/09/2018 to handel user Order View Page hardware back button 
+    platform.registerBackButtonAction(() => {
+      this.navCtrl.push(CustomerOrderPage);
+    });
   }
 
   ionViewDidLoad() {

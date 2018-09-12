@@ -26,7 +26,7 @@ export class FollowUsProvider {
           icon: 'logo-facebook',
           handler: () => {
            // this.launchExternalApp('fb://', 'com.facebook.katana', 'fb://profile/', 'https://www.facebook.com/', '963940166963050');
-            this.launchExternalApp('fb://', 'com.facebook.katana', 'fb://profile/', 'https://www.facebook.com/', 'mirajfmcg');
+            this.launchExternalApp('fb://', 'com.facebook.android', 'fb://profile/', 'https://www.facebook.com/', 'mirajfmcg');
           }
         }, {
           text: 'Google Plus',

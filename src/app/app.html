@@ -21,38 +21,11 @@
 
         <div class="follow-us">
             <h1>follow us on social</h1>
-            <ion-icon name="logo-facebook"></ion-icon>
-            <ion-icon name="logo-instagram"></ion-icon>
-            <ion-icon name="logo-twitter"></ion-icon>
-            <ion-icon name="logo-linkedin"></ion-icon>
-            <ion-icon name="logo-googleplus"></ion-icon>
-            <!-- <ion-row>
-                <ion-col>
-                <button ion-button icon-only (click)="facebookShare()" color="#dd6a0c" clear>
-                    <ion-icon class="share-icon" name="logo-facebook"></ion-icon>
-                </button>
-                </ion-col>
-                <ion-col>
-                <button ion-button icon-only (click)="instagramShare()" color="#dd6a0c" clear>
-                    <ion-icon class="share-icon" name="logo-instagram"></ion-icon>
-                </button>
-                </ion-col>
-                <ion-col>
-                <button ion-button icon-only (click)="twitterShare()" color="#dd6a0c" clear>
-                    <ion-icon class="share-icon" name="logo-twitter"></ion-icon>
-                </button>
-                </ion-col>
-                <ion-col>
-                <button ion-button icon-only (click)="linkedinShare()" color="#dd6a0c" clear>
-                    <ion-icon class="share-icon" name="logo-linkedin"></ion-icon>
-                </button>
-                </ion-col>
-                <ion-col>
-                <button ion-button icon-only (click)="googleplusShare()" color="#dd6a0c" clear>
-                    <ion-icon class="share-icon" name="logo-googleplus"></ion-icon>
-                </button>
-                </ion-col>
-            </ion-row> -->
+            <ion-icon class="share-icon" name="logo-facebook" (click)="followFacebook()"></ion-icon>
+            <ion-icon class="share-icon" name="logo-instagram" (click)="followInstagram()"></ion-icon>
+            <ion-icon class="share-icon" name="logo-twitter" (click)="followTwitter()"></ion-icon>
+            <!-- <ion-icon class="share-icon" name="logo-linkedin" (click)="followLinkedin()"></ion-icon> -->
+            <ion-icon class="share-icon" name="logo-googleplus" (click)="followGoogleplus()" ></ion-icon>
         </div>
     </ion-content>
 </ion-menu>

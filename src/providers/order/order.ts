@@ -28,6 +28,12 @@ export class OrderProvider {
   public scity: any;
   public szone_id: any;
 
+  public order_id;
+  public page;
+  public limit;
+  public sort;
+  public order;
+
   constructor(public http: HttpClient, public customerProvider: CustomerProvider) {
     this.headers.set('Access-Control-Allow-Origin ', '*');
     this.headers.set('Content-Type', 'application/json; charset=utf-8');
@@ -104,8 +110,27 @@ export class OrderProvider {
     );
   }
 
-  getOrders() {
+  getOrders(data): any {
+    this.order_id = data.order_id;
+    this.page = data.page;
+    this.limit = data.limit;
+    this.sort = data.sort;
+    this.order = data.order;
     this.URL = ConfigProvider.BASE_URL_ + 'orders?customer_id=' +  this.customer_id;    
+    if (this.page) {
+      this.URL += '&pageid=' + this.page;
+    }
+
+    if (this.limit) {
+      this.URL += '&limit=' + this.limit;
+    }
+
+    if (this.sort) {
+      this.URL += '&sort=' + this.sort;
+    }
+    if (this.order) {
+      this.URL += '&order=' + this.order;
+    }
     return this.http.get(this.URL,
       {
         headers: this.headers,
@@ -121,7 +146,6 @@ export class OrderProvider {
       }
     );
   }
-
 
   setRequest(data:any){
     this.formData = new FormData();
@@ -146,8 +170,6 @@ export class OrderProvider {
       }
     );
   }
-
-
   
   checkImidiateShipping() {
     this.URL = ConfigProvider.BASE_URL_ + 'checkimidiateshipping';

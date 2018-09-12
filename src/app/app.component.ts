@@ -16,7 +16,6 @@ import { ConfigProvider } from '../providers/config/config';
 import { CustomerProvider } from '../providers/customer/customer';
 import { FollowUsProvider } from '../providers/follow-us/follow-us';
 
-
 //public
 import { TermsAndConditionsPage } from '../pages/public/terms-and-conditions/terms-and-conditions';
 import { HelpAndSupportPage } from '../pages/public/help-and-support/help-and-support';
@@ -25,9 +24,13 @@ import { ContactUsPage } from '../pages/public/contact-us/contact-us';
 
 import { AlertController, Alert } from 'ionic-angular';
 
- // This is added on 07/09/2018 for No Network Access
+// This is added on 07/09/2018 for No Network Access
 import { Network } from '@ionic-native/network';
 import { NetworkProvider } from '../providers/network/network';
+
+// This is added on 10/09/2018 for follow-us functionality
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { AppAvailability } from '@ionic-native/app-availability';
 
 
 export interface PageInterface {
@@ -48,7 +51,7 @@ export class MyApp {
 
   public searchInput;
   rootPage: any = TabsPage;
-
+  
   pages: PageInterface[] = [
     { title: 'home', name: 'TabsPage', component: TabsPage, tabComponent: HomePage, index: 0, icon: 'assets/icon/home.png' },
     { title: 'shop by categories', name: 'TabsPage', component: TabsPage, tabComponent: CategoriesPage, index: 1, icon: 'assets/icon/category.png' },
@@ -76,40 +79,29 @@ export class MyApp {
     public alertCtrl: AlertController,
     public events: Events,
     public network: Network,
-    public networkProvider: NetworkProvider
+    public networkProvider: NetworkProvider,
+    private iab: InAppBrowser,
+    private appAvailability: AppAvailability,
     //private netService: NetworkServiceProvider
   ) {
     this.initializeApp();
+    platform.ready().then(() => {
+      this.listenConnection();
+    })
   }
+
+  // ionViewWillEnter(){
+  //   this.platform.ready().then(() => {
+  //     this.listenConnection();
+  //   })
+  // }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-
-      // This is added on 07/09/2018 for No Network Access //
-
-      this.networkProvider.initializeNetworkEvents();
- 
-      // Offline event
-      //console.log(this.events);
-      this.events.subscribe('network:offline', () => {
-        console.log('offline');
-         // alert('network:offline ==> '+this.network.type);    
-      });
-
-      // Online event
-      this.events.subscribe('network:online', () => {
-        console.log('online');
-          //alert('network:online ==> '+this.network.type);     
-      });
-
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-
       this.platform.registerBackButtonAction(() => {
         const overlayView = this.app._appRoot._overlayPortal._views[0];
-
         if (overlayView && overlayView.dismiss) {
           overlayView.dismiss();
           return;
@@ -123,12 +115,37 @@ export class MyApp {
         } else {
           this.exitApp();
         }
-
       }, 0);
+    });
+  }
 
+  // This is added on 07/09/2018 for No Network Access //
+  private listenConnection(): void {
+    this.networkProvider.initializeNetworkEvents();
 
+    // Offline event
+    this.events.subscribe('network:offline', () => {
+      let alert = this.alertCtrl.create({
+        title: "Connection Failed !",
+        subTitle: "Please check your network settings.",
+        buttons: [{
+        text: ("Okay")
+        }]
+      });
+        alert.present();
     });
 
+    // Online event
+    this.events.subscribe('network:online', () => {
+      let alert = this.alertCtrl.create({
+        title: "Network Available..",
+        subTitle: "Connected via "+ this.network.type,
+        buttons: [{
+        text: ("Okay")
+        }]
+      });
+        alert.present();
+    });
   }
 
   exitApp() {
@@ -192,40 +209,48 @@ export class MyApp {
 
   // Added on 07/09/2018 for Follow Us on Socials
 
-  // instagramShare() {
-  //   this.socialSharing.appName = 'instagram';
-  //   this.socialSharing.message = null;
-  //   this.socialSharing.subject = null;
-  //   this.socialSharing.image = null;
-  //   this.socialSharing.url = this.url;
-  //   this.socialSharing.shareVia();
-  // }
+  followFacebook(){
+    //this.launchExternalApp('fb://', 'com.facebook.katana', 'fb://profile/', 'https://www.facebook.com/', 'mirajfmcg');
+    this.launchExternalApp('fb://', 'com.facebook.android', 'fb://profile/', 'https://www.facebook.com/', 'mirajfmcg');
+  }
 
-  // whatsappShare() {
-  //   this.socialSharing.appName = 'whatsapp';
-  //   this.socialSharing.message = this.message;
-  //   this.socialSharing.subject = this.subject;
-  //   this.socialSharing.image = this.appimage;
-  //   this.socialSharing.url = this.url;
-  //   this.socialSharing.shareVia();
-  // }
+  followInstagram(){
+    this.launchExternalApp('instagram://', 'com.instagram.android', 'instagram://user?username=', 'http://instagram.com/', 'miraj_fmcg/');
+  }
 
-  // twitterShare() {
-  //   this.socialSharing.appName = 'twitter';
-  //   this.socialSharing.message = this.message;
-  //   this.socialSharing.subject = this.subject;
-  //   this.socialSharing.image = this.appimage;
-  //   this.socialSharing.url = this.url;
-  //   this.socialSharing.shareVia();
-  // }
+  followTwitter(){
+    this.launchExternalApp('twitter://', 'com.twitter.android', 'twitter://user?screen_name=', 'https://twitter.com/', 'mirajfmcg');
+  }
 
-  // facebookShare() {
-  //   this.socialSharing.appName = 'facebook';
-  //   this.socialSharing.message = null;
-  //   this.socialSharing.subject = null;
-  //   this.socialSharing.image = null;
-  //   this.socialSharing.url = this.url;
-  //   this.socialSharing.shareVia();
-  // }
+  followLinkedin(){
+
+  }
+
+  followGoogleplus(){
+    this.launchExternalApp('googleplus://', 'com.googleplus.android', 'googleplus://user?screen_name=', 'https://plus.google.com/u/0/', '115692487643469865966');
+  }
+
+  launchExternalApp(iosSchemaName: string, androidPackageName: string, appUrl: string, httpUrl: string, username: string) {
+    let app: string;
+
+    if (this.platform.is('ios')) {
+      app = iosSchemaName;
+    } else if (this.platform.is('android')) {
+      app = androidPackageName;
+    } else {
+      let browser = this.iab.create(httpUrl + username, '_system');
+      return;
+    }
+
+    this.appAvailability.check(app).then(
+      (yes: boolean) => { // success callback
+        let browser = this.iab.create(appUrl + username, '_system');
+      },
+      (no: boolean) => { // error callback
+        let browser = this.iab.create(httpUrl + username, '_system');
+      }
+    );
+
+  }
 
 }

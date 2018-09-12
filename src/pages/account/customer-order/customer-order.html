@@ -12,7 +12,7 @@
 </ion-header>
 <ion-content>
     <h1 text-center> {{heading_title}}</h1>
-    <ion-card *ngFor="let order of orders;">
+    <ion-card *ngFor="let order of orderModel;">
         <ion-card-content>
             <ion-grid>
                 <ion-row>
@@ -48,4 +48,10 @@
             </ion-grid>
         </ion-card-content>
     </ion-card>
+    <div *ngIf="isInfinite">
+        <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+            </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </div>
 </ion-content>

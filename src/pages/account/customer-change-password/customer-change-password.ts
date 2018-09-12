@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // providers
@@ -7,6 +7,10 @@ import { CustomerProvider } from '../../../providers/customer/customer';
 import { AlertProvider } from '../../../providers/alert/alert';
 import { LoadingProvider } from '../../../providers/loading/loading';
 import { CustomerLoginPage } from '../customer-login/customer-login';
+
+// Added on 10/09/2018 to handel user chabge password Page hardware back button 
+import { CustomerAccountPage } from '../customer-account/customer-account';
+
 @IonicPage()
 @Component({
   selector: 'page-customer-change-password',
@@ -35,9 +39,15 @@ export class CustomerChangePasswordPage {
     private customerProvider: CustomerProvider,
     public alertProvider: AlertProvider,
     public loadingProvider: LoadingProvider,
+    private platform: Platform
   ) {
     this.heading_title='Update Password';
     this.createForm();
+
+    // Added on 10/09/2018 to handel user chabge password Page hardware back button 
+    platform.registerBackButtonAction(() => {
+      this.navCtrl.push(CustomerAccountPage);
+    });
   }
   goBack() {
     this.navCtrl.pop();

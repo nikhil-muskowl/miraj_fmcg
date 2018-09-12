@@ -17,7 +17,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { DatePicker } from '@ionic-native/date-picker';
 import { SocialSharing } from '@ionic-native/social-sharing';
 
-
 // pages
 import { HomePage } from '../pages/home/home';
 import { StoresPage } from '../pages/stores/stores';
@@ -34,7 +33,6 @@ import { CategoryProductsPage } from '../pages/products/category-products/catego
 import { ProductPage } from '../pages/products/product/product';
 import { SpecialProductsPage } from '../pages/products/special-products/special-products';
 import { SearchProductsPage } from '../pages/products/search-products/search-products';
-
 
 // account
 import { CustomerLoginPage } from '../pages/account/customer-login/customer-login';
@@ -62,7 +60,6 @@ import { HeaderComponent } from '../components/header/header';
 import { CartSummaryComponent } from '../components/cart-summary/cart-summary';
 import { CartTermsComponent } from '../components/cart-terms/cart-terms';
 import { ProductReviewComponent } from '../components/product-review/product-review';
-
 
 // providers
 import { FollowUsProvider } from '../providers/follow-us/follow-us';

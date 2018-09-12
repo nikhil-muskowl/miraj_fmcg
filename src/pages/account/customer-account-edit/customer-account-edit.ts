@@ -1,5 +1,5 @@
 import { Component, ViewChild  } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContactValidator } from '../../../validators/contact';
 import { CustomerProvider } from '../../../providers/customer/customer';
@@ -7,6 +7,10 @@ import { AlertProvider } from '../../../providers/alert/alert';
 import { LoadingProvider } from '../../../providers/loading/loading';
 import { CustomerLoginPage } from '../customer-login/customer-login';
 import { AddressProvider } from '../../../providers/address/address';
+
+// Added on 10/09/2018 to handel user edit account hardware back button 
+import { CustomerAccountPage } from '../customer-account/customer-account';
+
 @IonicPage()
 @Component({
   selector: 'page-customer-account-edit',
@@ -21,7 +25,6 @@ export class CustomerAccountEditPage {
   private message;
   private responseData;
   private responseDbData;
-
 
   private success;
   private error;
@@ -68,6 +71,7 @@ export class CustomerAccountEditPage {
     public alertProvider: AlertProvider,
     public loadingProvider: LoadingProvider,
     private addressProvider: AddressProvider,
+    private platform: Platform
   ) {
 
     this.heading_title = 'Edit Account Details';
@@ -86,6 +90,11 @@ export class CustomerAccountEditPage {
     this.getZone(this.country_id);
     this.getDistrict(this.zone_id);
     this.createForm();
+
+    // Added on 10/09/2018 to handel user edit account hardware back button 
+    platform.registerBackButtonAction(() => {
+      this.navCtrl.push(CustomerAccountPage);
+    });
   } @ViewChild('datePicker') datePicker;
   open() {
       if (!this.dob) {

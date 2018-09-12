@@ -28,6 +28,20 @@ export class CustomerOrderPage {
   public heading_title;
 
   private redirecturl = '';
+
+  public pagination;
+  public sorts;
+  public limits;
+  public order_id;
+  public rateValue;
+  public filterData;
+  public sort;
+  public order;
+  public limit;
+  public page = 1;
+  public isInfinite = true;
+  public orderModel: any[] = [];
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private orderProvider: OrderProvider,
@@ -46,8 +60,10 @@ export class CustomerOrderPage {
       this.Payment(this.redirecturl);
     }
 
-
-    
+    // Added on 10/09/2018 to handel user chabge password Page hardware back button 
+    platform.registerBackButtonAction(() => {
+      this.navCtrl.push(CustomerAccountPage);
+    });
   }
 
   Payment(url) {
@@ -71,16 +87,33 @@ export class CustomerOrderPage {
     this.navCtrl.setRoot(CustomerAccountPage);
   }
 
-  ionViewDidLoad() {
+  // ionViewDidLoad() {
+  //   this.getServerData();
+  // }
+
+  // This is added to refresh the page agter loading.
+  ionViewWillEnter(){
     this.getServerData();
   }
 
   public getServerData() {
+    this.filterData = {
+      'page': this.page,
+      'order_id': this.order_id,
+      'limit': this.limit,
+      'sort': this.sort,
+      'order': this.order
+    };
     this.loadingProvider.present();
-    this.orderProvider.getOrders().subscribe(
+    this.orderProvider.getOrders(this.filterData).subscribe(
       response => {
         this.responseData = response;
         this.orders = this.responseData.orders;
+        this.pagination = this.responseData.pagination;
+        this.sorts = this.responseData.sorts;
+        this.limits = this.responseData.limits;
+        //console.log(this.responseData);
+        this.binddata();
       },
       err => console.error(err),
       () => {
@@ -88,6 +121,40 @@ export class CustomerOrderPage {
       }
     );
     return event;
+  }
+
+  binddata() {
+    for (let index = 0; index < this.orders.length; index++) {
+      this.orderModel.push({
+        order_id: this.orders[index].order_id,
+        order_no: this.orders[index].order_no,
+        name: this.orders[index].name,
+        status: this.orders[index].status,
+        date_added: this.orders[index].date_added,
+        products: this.orders[index].products,
+        total: this.orders[index].total,
+        paymenturl: this.orders[index].paymenturl,
+        trackurl: this.orders[index].trackurl,
+        iscancel: this.orders[index].iscancel,
+        isrefund: this.orders[index].isrefund,
+        reorder: this.orders[index].reorder
+
+      });
+      //console.log(this.orderModel);
+    }
+  }
+
+  doInfinite(infiniteScroll) {
+    if (this.orders.length > 0 && this.pagination.length != this.page) {
+      this.page++;
+      this.getServerData();
+      this.isInfinite = true;
+    } else {
+      this.isInfinite = false;
+    }
+    setTimeout(() => {
+      infiniteScroll.complete();
+    }, 500);
   }
 
   isLogin() {
@@ -150,6 +217,7 @@ export class CustomerOrderPage {
 
         browser.on('exit').subscribe(() => {
           this.getServerData();
+          //this.navCtrl.setRoot(CustomerOrderPage);
         }, err => 
             console.error(err));
        // });

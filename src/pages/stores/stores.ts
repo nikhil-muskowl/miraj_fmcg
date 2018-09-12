@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { AddressProvider } from '../../providers/address/address';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { ToastProvider } from '../../providers/toast/toast';
@@ -51,8 +51,13 @@ export class StoresPage {
     private toastProvider: ToastProvider,
     private followUsProvider: FollowUsProvider,
     private storesProvider: StoresProvider,
-    private socialSharing: SocialSharingProvider
+    private socialSharing: SocialSharingProvider,
+    private platform: Platform
   ) {
+    platform.registerBackButtonAction(() => {
+      //this.navCtrl.pop();
+      this.navCtrl.push(HomePage);
+    });
     //this.getStoreData();
   }
 

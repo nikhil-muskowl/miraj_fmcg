@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { ActionSheetController } from 'ionic-angular';
 import { CustomerLoginPage } from '../customer-login/customer-login';
 import { ProductPage } from '../../products/product/product';
@@ -8,6 +8,10 @@ import { LoadingProvider } from '../../../providers/loading/loading';
 import { WishlistProvider } from '../../../providers/wishlist/wishlist';
 import { AlertProvider } from '../../../providers/alert/alert';
 import { CustomerProvider } from '../../../providers/customer/customer';
+
+// Added on 10/09/2018 to handel user wishlist hardware back button 
+import { CustomerAccountPage } from '../customer-account/customer-account';
+
 @IonicPage()
 @Component({
   selector: 'page-customer-wishlist',
@@ -31,10 +35,16 @@ export class CustomerWishlistPage {
     public alertProvider: AlertProvider,
     private loadingProvider: LoadingProvider,
     private customerProvider: CustomerProvider,
+    private platform: Platform
   ) {
     this.heading_title = 'Wishlist';
     this.isLogin();
     this.getServerData();
+
+    // Added on 10/09/2018 to handel user wishlist hardware back button 
+    platform.registerBackButtonAction(() => {
+      this.navCtrl.push(CustomerAccountPage);
+    });
   }
 
   ionViewDidLoad() {
